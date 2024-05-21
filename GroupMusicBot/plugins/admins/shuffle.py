@@ -1,13 +1,13 @@
 import random
+from config import BANNED_USERS
 
 from pyrogram import filters
 from pyrogram.types import Message
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import db
-from GroupMusicBot.utils.decorators import AdminRightsCheck
 from GroupMusicBot.utils.inline import close_markup
-from config import BANNED_USERS
+from GroupMusicBot.utils.decorators import AdminRightsCheck
 
 
 @app.on_message(

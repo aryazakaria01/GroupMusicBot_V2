@@ -1,11 +1,14 @@
 import time
+import config
+
+from strings import get_string
+from config import BANNED_USERS
+from youtubesearchpython.__future__ import VideosSearch
 
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
-from youtubesearchpython.__future__ import VideosSearch
 
-import config
 from GroupMusicBot import app
 from GroupMusicBot.misc import _boot_
 from GroupMusicBot.plugins.sudo.sudoers import sudoers_list
@@ -18,11 +21,9 @@ from GroupMusicBot.utils.database import (
     is_on_off,
 )
 from GroupMusicBot.utils import bot_sys_stats
-from GroupMusicBot.utils.decorators.language import LanguageStart
 from GroupMusicBot.utils.formatters import get_readable_time
+from GroupMusicBot.utils.decorators.language import LanguageStart
 from GroupMusicBot.utils.inline import help_pannel, private_panel, start_panel
-from config import BANNED_USERS
-from strings import get_string
 
 
 @app.on_message(filters.command(["start"]) & filters.private & ~BANNED_USERS)
@@ -44,7 +45,7 @@ async def start_pm(client, message: Message, _):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOG_GROUP_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>sᴜᴅᴏʟɪsᴛ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"{message.from_user.mention} just started the bot to check <b>Sudolist</b>.\n\n<b>User ID:</b> <code>{message.from_user.id}</code>\n<b>Username :</b> @{message.from_user.username}",
                 )
             return
         if name[0:3] == "inf":
@@ -82,7 +83,7 @@ async def start_pm(client, message: Message, _):
             if await is_on_off(2):
                 return await app.send_message(
                     chat_id=config.LOG_GROUP_ID,
-                    text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ ᴛᴏ ᴄʜᴇᴄᴋ <b>ᴛʀᴀᴄᴋ ɪɴғᴏʀᴍᴀᴛɪᴏɴ</b>.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                    text=f"{message.from_user.mention} just started the bot to check <b>Track Information</b>.\n\n<b>User ID:</b> <code>{message.from_user.id}</code>\n<b>Username:</b> @{message.from_user.username}",
                 )
     else:
         out = private_panel(_)
@@ -95,7 +96,7 @@ async def start_pm(client, message: Message, _):
         if await is_on_off(2):
             return await app.send_message(
                 chat_id=config.LOG_GROUP_ID,
-                text=f"{message.from_user.mention} ᴊᴜsᴛ sᴛᴀʀᴛᴇᴅ ᴛʜᴇ ʙᴏᴛ.\n\n<b>ᴜsᴇʀ ɪᴅ :</b> <code>{message.from_user.id}</code>\n<b>ᴜsᴇʀɴᴀᴍᴇ :</b> @{message.from_user.username}",
+                text=f"{message.from_user.mention} just started the bot.\n\n<b>User ID:</b> <code>{message.from_user.id}</code>\n<b>Username:</b> @{message.from_user.username}",
             )
 
 

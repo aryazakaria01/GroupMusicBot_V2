@@ -1,16 +1,17 @@
+import config
+from config import BANNED_USERS
+
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
-import config
-from GroupMusicBot import YouTube, app
-from GroupMusicBot.core.call import Aviax
 from GroupMusicBot.misc import db
+from GroupMusicBot import YouTube, app
+from GroupMusicBot.core.call import GMB
 from GroupMusicBot.utils.database import get_loop
-from GroupMusicBot.utils.decorators import AdminRightsCheck
-from GroupMusicBot.utils.inline import close_markup, stream_markup
-from GroupMusicBot.utils.stream.autoclear import auto_clean
 from GroupMusicBot.utils.thumbnails import gen_thumb
-from config import BANNED_USERS
+from GroupMusicBot.utils.decorators import AdminRightsCheck
+from GroupMusicBot.utils.stream.autoclear import auto_clean
+from GroupMusicBot.utils.inline import close_markup, stream_markup
 
 
 @app.on_message(
@@ -48,7 +49,7 @@ async def skip(cli, message: Message, _, chat_id):
                                         ),
                                         reply_markup=close_markup(_),
                                     )
-                                    await Aviax.stop_stream(chat_id)
+                                    await GMB.stop_stream(chat_id)
                                 except:
                                     return
                                 break
@@ -75,7 +76,7 @@ async def skip(cli, message: Message, _, chat_id):
                     reply_markup=close_markup(_),
                 )
                 try:
-                    return await Aviax.stop_stream(chat_id)
+                    return await GMB.stop_stream(chat_id)
                 except:
                     return
         except:
@@ -86,7 +87,7 @@ async def skip(cli, message: Message, _, chat_id):
                     ),
                     reply_markup=close_markup(_),
                 )
-                return await Aviax.stop_stream(chat_id)
+                return await GMB.stop_stream(chat_id)
             except:
                 return
     queued = check[0]["file"]
@@ -111,7 +112,7 @@ async def skip(cli, message: Message, _, chat_id):
         except:
             image = None
         try:
-            await Aviax.skip_stream(chat_id, link, video=status, image=image)
+            await GMB.skip_stream(chat_id, link, video=status, image=image)
         except:
             return await message.reply_text(_["call_6"])
         button = stream_markup(_, chat_id)
@@ -144,7 +145,7 @@ async def skip(cli, message: Message, _, chat_id):
         except:
             image = None
         try:
-            await Aviax.skip_stream(chat_id, file_path, video=status, image=image)
+            await GMB.skip_stream(chat_id, file_path, video=status, image=image)
         except:
             return await mystic.edit_text(_["call_6"])
         button = stream_markup(_, chat_id)
@@ -164,7 +165,7 @@ async def skip(cli, message: Message, _, chat_id):
         await mystic.delete()
     elif "index_" in queued:
         try:
-            await Aviax.skip_stream(chat_id, videoid, video=status)
+            await GMB.skip_stream(chat_id, videoid, video=status)
         except:
             return await message.reply_text(_["call_6"])
         button = stream_markup(_, chat_id)
@@ -186,7 +187,7 @@ async def skip(cli, message: Message, _, chat_id):
             except:
                 image = None
         try:
-            await Aviax.skip_stream(chat_id, queued, video=status, image=image)
+            await GMB.skip_stream(chat_id, queued, video=status, image=image)
         except:
             return await message.reply_text(_["call_6"])
         if videoid == "telegram":

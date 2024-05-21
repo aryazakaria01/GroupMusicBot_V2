@@ -1,3 +1,5 @@
+from strings import get_string
+
 from pyrogram import filters
 from pyrogram.types import Message
 
@@ -9,7 +11,6 @@ from GroupMusicBot.utils.database import (
     maintenance_off,
     maintenance_on,
 )
-from strings import get_string
 
 
 @app.on_message(filters.command(["maintenance"]) & SUDOERS)

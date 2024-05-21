@@ -1,14 +1,15 @@
+from config import BANNED_USERS, adminlist
+
 from pyrogram import filters
 from pyrogram.types import Message
 
 from GroupMusicBot import app
-from GroupMusicBot.core.call import Aviax
+from GroupMusicBot.core.call import GMB
 from GroupMusicBot.misc import SUDOERS, db
 from GroupMusicBot.utils import AdminRightsCheck
-from GroupMusicBot.utils.database import is_active_chat, is_nonadmin_chat
 from GroupMusicBot.utils.decorators.language import languageCB
 from GroupMusicBot.utils.inline import close_markup, speed_markup
-from config import BANNED_USERS, adminlist
+from GroupMusicBot.utils.database import is_active_chat, is_nonadmin_chat
 
 checker = []
 
@@ -94,7 +95,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         text=_["admin_32"].format(CallbackQuery.from_user.mention),
     )
     try:
-        await Aviax.speedup_stream(
+        await GMB.speedup_stream(
             chat_id,
             file_path,
             speed,

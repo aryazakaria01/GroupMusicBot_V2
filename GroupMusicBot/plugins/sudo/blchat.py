@@ -1,11 +1,12 @@
+from config import BANNED_USERS
+
 from pyrogram import filters
 from pyrogram.types import Message
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
-from GroupMusicBot.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 from GroupMusicBot.utils.decorators.language import language
-from config import BANNED_USERS
+from GroupMusicBot.utils.database import blacklist_chat, blacklisted_chats, whitelist_chat
 
 
 @app.on_message(filters.command(["blchat", "blacklistchat"]) & SUDOERS)
@@ -52,7 +53,7 @@ async def all_chats(client, message: Message, _):
         try:
             title = (await app.get_chat(chat_id)).title
         except:
-            title = "ᴘʀɪᴠᴀᴛᴇ ᴄʜᴀᴛ"
+            title = "Private Chats"
         j = 1
         text += f"{count}. {title}[<code>{chat_id}</code>]\n"
     if j == 0:

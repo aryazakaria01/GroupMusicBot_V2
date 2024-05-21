@@ -1,8 +1,9 @@
 import asyncio
+from config import BANNED_USERS
 
 from pyrogram import filters
-from pyrogram.errors import FloodWait
 from pyrogram.types import Message
+from pyrogram.errors import FloodWait
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
@@ -17,8 +18,6 @@ from GroupMusicBot.utils.database import (
 )
 from GroupMusicBot.utils.decorators.language import language
 from GroupMusicBot.utils.extraction import extract_user
-from config import BANNED_USERS
-
 
 @app.on_message(filters.command(["gban", "globalban"]) & SUDOERS)
 @language

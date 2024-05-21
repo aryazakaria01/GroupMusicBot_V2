@@ -1,13 +1,13 @@
-from pykeyboard import InlineKeyboard
+from config import BANNED_USERS
+
 from pyrogram import filters
+from pykeyboard import InlineKeyboard
 from pyrogram.types import InlineKeyboardButton, Message
 
 from GroupMusicBot import app
+from strings import get_string, languages_present
 from GroupMusicBot.utils.database import get_lang, set_lang
 from GroupMusicBot.utils.decorators import ActualAdminCB, language, languageCB
-from config import BANNED_USERS
-from strings import get_string, languages_present
-
 
 def lanuages_keyboard(_):
     keyboard = InlineKeyboard(row_width=2)

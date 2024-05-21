@@ -1,11 +1,11 @@
+import config
 import asyncio
-from datetime import datetime
 
+from datetime import datetime
 from pyrogram.enums import ChatType
 
-import config
 from GroupMusicBot import app
-from GroupMusicBot.core.call import Aviax, autoend
+from GroupMusicBot.core.call import GMB, autoend
 from GroupMusicBot.utils.database import get_client, is_active_chat, is_autoend
 
 
@@ -26,8 +26,8 @@ async def auto_leave():
                         ]:
                             if (
                                 i.chat.id != config.LOG_GROUP_ID
-                                and i.chat.id != -1001686672798
-                                and i.chat.id != -1001549206010
+                                and i.chat.id != -1001662591986
+                                and i.chat.id != -1001577053940
                             ):
                                 if left == 20:
                                     continue
@@ -59,13 +59,13 @@ async def auto_end():
                     continue
                 autoend[chat_id] = {}
                 try:
-                    await Aviax.stop_stream(chat_id)
+                    await GMB.stop_stream(chat_id)
                 except:
                     continue
                 try:
                     await app.send_message(
                         chat_id,
-                        "» ʙᴏᴛ ᴀᴜᴛᴏᴍᴀᴛɪᴄᴀʟʟʏ ʟᴇғᴛ ᴠɪᴅᴇᴏᴄʜᴀᴛ ʙᴇᴄᴀᴜsᴇ ɴᴏ ᴏɴᴇ ᴡᴀs ʟɪsᴛᴇɴɪɴɢ ᴏɴ ᴠɪᴅᴇᴏᴄʜᴀᴛ.",
+                        "Bot automatically left videochat because no one was listening on videochat.",
                     )
                 except:
                     continue

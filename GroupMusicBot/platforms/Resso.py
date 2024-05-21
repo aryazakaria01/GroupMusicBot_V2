@@ -1,10 +1,9 @@
 import re
-from typing import Union
-
 import aiohttp
+from typing import Union
 from bs4 import BeautifulSoup
-from youtubesearchpython.__future__ import VideosSearch
 
+from youtubesearchpython.__future__ import VideosSearch
 
 class RessoAPI:
     def __init__(self):

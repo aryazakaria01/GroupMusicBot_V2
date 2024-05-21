@@ -1,12 +1,12 @@
+from config import BANNED_USERS
+
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, Message
 
 from GroupMusicBot import app
-from GroupMusicBot.utils.database import get_playmode, get_playtype, is_nonadmin_chat
 from GroupMusicBot.utils.decorators import language
 from GroupMusicBot.utils.inline.settings import playmode_users_markup
-from config import BANNED_USERS
-
+from GroupMusicBot.utils.database import get_playmode, get_playtype, is_nonadmin_chat
 
 @app.on_message(filters.command(["playmode", "mode"]) & filters.group & ~BANNED_USERS)
 @language

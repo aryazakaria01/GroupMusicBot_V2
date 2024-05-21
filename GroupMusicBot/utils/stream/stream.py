@@ -6,7 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup
 
 import config
 from GroupMusicBot import Carbon, YouTube, app
-from GroupMusicBot.core.call import Aviax
+from GroupMusicBot.core.call import GMB
 from GroupMusicBot.misc import db
 from GroupMusicBot.utils.database import add_active_video_chat, is_active_chat
 from GroupMusicBot.utils.exceptions import AssistantErr
@@ -32,7 +32,7 @@ async def stream(
     if not result:
         return
     if forceplay:
-        await Aviax.force_stop_stream(chat_id)
+        await GMB.force_stop_stream(chat_id)
     if streamtype == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
@@ -79,7 +79,7 @@ async def stream(
                     )
                 except:
                     raise AssistantErr(_["play_14"])
-                await Aviax.join_call(
+                await GMB.join_call(
                     chat_id,
                     original_chat_id,
                     file_path,
@@ -173,7 +173,7 @@ async def stream(
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Aviax.join_call(
+            await GMB.join_call(
                 chat_id,
                 original_chat_id,
                 file_path,
@@ -233,7 +233,7 @@ async def stream(
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Aviax.join_call(chat_id, original_chat_id, file_path, video=None)
+            await GMB.join_call(chat_id, original_chat_id, file_path, video=None)
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -285,7 +285,7 @@ async def stream(
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Aviax.join_call(chat_id, original_chat_id, file_path, video=status)
+            await GMB.join_call(chat_id, original_chat_id, file_path, video=status)
             await put_queue(
                 chat_id,
                 original_chat_id,
@@ -341,7 +341,7 @@ async def stream(
             n, file_path = await YouTube.video(link)
             if n == 0:
                 raise AssistantErr(_["str_3"])
-            await Aviax.join_call(
+            await GMB.join_call(
                 chat_id,
                 original_chat_id,
                 file_path,
@@ -399,7 +399,7 @@ async def stream(
         else:
             if not forceplay:
                 db[chat_id] = []
-            await Aviax.join_call(
+            await GMB.join_call(
                 chat_id,
                 original_chat_id,
                 link,

@@ -1,13 +1,13 @@
+from config import BANNED_USERS
+
 from pyrogram import filters
 from pyrogram.types import Message
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
-from GroupMusicBot.utils.database import add_gban_user, remove_gban_user
-from GroupMusicBot.utils.decorators.language import language
 from GroupMusicBot.utils.extraction import extract_user
-from config import BANNED_USERS
-
+from GroupMusicBot.utils.decorators.language import language
+from GroupMusicBot.utils.database import add_gban_user, remove_gban_user
 
 @app.on_message(filters.command(["block"]) & SUDOERS)
 @language

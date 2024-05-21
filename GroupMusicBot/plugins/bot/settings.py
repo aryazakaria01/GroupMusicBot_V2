@@ -1,3 +1,5 @@
+from config import BANNED_USERS, OWNER_ID
+
 from pyrogram import filters
 from pyrogram.enums import ChatType
 from pyrogram.errors import MessageNotModified
@@ -26,6 +28,7 @@ from GroupMusicBot.utils.database import (
     skip_on,
 )
 from GroupMusicBot.utils import bot_sys_stats
+from GroupMusicBot.utils.inline.start import private_panel
 from GroupMusicBot.utils.decorators.admins import ActualAdminCB
 from GroupMusicBot.utils.decorators.language import language, languageCB
 from GroupMusicBot.utils.inline.settings import (
@@ -34,8 +37,6 @@ from GroupMusicBot.utils.inline.settings import (
     setting_markup,
     vote_mode_markup,
 )
-from GroupMusicBot.utils.inline.start import private_panel
-from config import BANNED_USERS, OWNER_ID
 
 
 @app.on_message(

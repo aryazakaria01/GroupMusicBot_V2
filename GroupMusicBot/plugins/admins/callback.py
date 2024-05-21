@@ -1,10 +1,12 @@
+import config
 import asyncio
+from strings import get_string
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 from GroupMusicBot import YouTube, app
-from GroupMusicBot.core.call import Aviax
+from GroupMusicBot.core.call import GMB
 from GroupMusicBot.misc import SUDOERS, db
 from GroupMusicBot.utils.database import (
     get_active_chats,
@@ -17,11 +19,11 @@ from GroupMusicBot.utils.database import (
     music_on,
     set_loop,
 )
-from GroupMusicBot.utils.decorators.language import languageCB
-from GroupMusicBot.utils.formatters import seconds_to_min
-from GroupMusicBot.utils.inline import close_markup, stream_markup, stream_markup_timer
-from GroupMusicBot.utils.stream.autoclear import auto_clean
 from GroupMusicBot.utils.thumbnails import gen_thumb
+from GroupMusicBot.utils.formatters import seconds_to_min
+from GroupMusicBot.utils.stream.autoclear import auto_clean
+from GroupMusicBot.utils.decorators.language import languageCB
+from GroupMusicBot.utils.inline import close_markup, stream_markup, stream_markup_timer
 from config import (
     BANNED_USERS,
     SOUNDCLOUD_IMG_URL,
@@ -32,8 +34,6 @@ from config import (
     confirmer,
     votemode,
 )
-from strings import get_string
-import config
 
 checker = {}
 upvoters = {}
@@ -98,7 +98,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 pass
             command = counter
-            mention = "ᴜᴘᴠᴏᴛᴇs"
+            mention = "Upvotes"
         else:
             if (
                 CallbackQuery.from_user.id
@@ -136,7 +136,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(_["admin_1"], show_alert=True)
         await CallbackQuery.answer()
         await music_off(chat_id)
-        await Aviax.pause_stream(chat_id)
+        await GMB.pause_stream(chat_id)
         await CallbackQuery.message.reply_text(
             _["admin_2"].format(mention), reply_markup=close_markup(_)
         )
@@ -145,13 +145,13 @@ async def del_back_playlist(client, CallbackQuery, _):
             return await CallbackQuery.answer(_["admin_3"], show_alert=True)
         await CallbackQuery.answer()
         await music_on(chat_id)
-        await Aviax.resume_stream(chat_id)
+        await GMB.resume_stream(chat_id)
         await CallbackQuery.message.reply_text(
             _["admin_4"].format(mention), reply_markup=close_markup(_)
         )
     elif command == "Stop" or command == "End":
         await CallbackQuery.answer()
-        await Aviax.stop_stream(chat_id)
+        await GMB.stop_stream(chat_id)
         await set_loop(chat_id, 0)
         await CallbackQuery.message.reply_text(
             _["admin_5"].format(mention), reply_markup=close_markup(_)
@@ -160,7 +160,7 @@ async def del_back_playlist(client, CallbackQuery, _):
     elif command == "Skip" or command == "Replay":
         check = db.get(chat_id)
         if command == "Skip":
-            txt = f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"Stream Skipped\n│ \n└By : {mention}"
             popped = None
             try:
                 popped = check.pop(0)
@@ -168,7 +168,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                     await auto_clean(popped)
                 if not check:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"Stream Skipped\n│ \n└By : {mention}"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -177,13 +177,13 @@ async def del_back_playlist(client, CallbackQuery, _):
                         reply_markup=close_markup(_),
                     )
                     try:
-                        return await Aviax.stop_stream(chat_id)
+                        return await GMB.stop_stream(chat_id)
                     except:
                         return
             except:
                 try:
                     await CallbackQuery.edit_message_text(
-                        f"➻ sᴛʀᴇᴀᴍ sᴋɪᴩᴩᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+                        f"Stream Skipped\n│ \n└By : {mention}"
                     )
                     await CallbackQuery.message.reply_text(
                         text=_["admin_6"].format(
@@ -191,11 +191,11 @@ async def del_back_playlist(client, CallbackQuery, _):
                         ),
                         reply_markup=close_markup(_),
                     )
-                    return await Aviax.stop_stream(chat_id)
+                    return await GMB.stop_stream(chat_id)
                 except:
                     return
         else:
-            txt = f"➻ sᴛʀᴇᴀᴍ ʀᴇ-ᴘʟᴀʏᴇᴅ 🎄\n│ \n└ʙʏ : {mention} 🥀"
+            txt = f"Stream Re-Played\n│ \n└By : {mention}"
         await CallbackQuery.answer()
         queued = check[0]["file"]
         title = (check[0]["title"]).title()
@@ -223,7 +223,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 image = None
             try:
-                await Aviax.skip_stream(chat_id, link, video=status, image=image)
+                await GMB.skip_stream(chat_id, link, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -259,7 +259,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             except:
                 image = None
             try:
-                await Aviax.skip_stream(chat_id, file_path, video=status, image=image)
+                await GMB.skip_stream(chat_id, file_path, video=status, image=image)
             except:
                 return await mystic.edit_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -280,7 +280,7 @@ async def del_back_playlist(client, CallbackQuery, _):
             await mystic.delete()
         elif "index_" in queued:
             try:
-                await Aviax.skip_stream(chat_id, videoid, video=status)
+                await GMB.skip_stream(chat_id, videoid, video=status)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
@@ -303,7 +303,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                 except:
                     image = None
             try:
-                await Aviax.skip_stream(chat_id, queued, video=status, image=image)
+                await GMB.skip_stream(chat_id, queued, video=status, image=image)
             except:
                 return await CallbackQuery.message.reply_text(_["call_6"])
             if videoid == "telegram":

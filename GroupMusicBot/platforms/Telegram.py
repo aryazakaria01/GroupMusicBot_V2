@@ -1,11 +1,11 @@
-import asyncio
 import os
 import time
+import asyncio
+import config
 from typing import Union
 
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Voice
 
-import config
 from GroupMusicBot import app
 from GroupMusicBot.utils.formatters import (
     check_duration,
@@ -13,7 +13,6 @@ from GroupMusicBot.utils.formatters import (
     get_readable_time,
     seconds_to_min,
 )
-
 
 class TeleAPI:
     def __init__(self):
@@ -37,9 +36,9 @@ class TeleAPI:
         try:
             file_name = file.file_name
             if file_name is None:
-                file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
+                file_name = "Telegram Audio" if audio else "Telegram Video"
         except:
-            file_name = "ᴛᴇʟᴇɢʀᴀᴍ ᴀᴜᴅɪᴏ" if audio else "ᴛᴇʟᴇɢʀᴀᴍ ᴠɪᴅᴇᴏ"
+            file_name = "Telegram Audio" if audio else "Telegram Video"
         return file_name
 
     async def get_duration(self, file):
@@ -110,7 +109,7 @@ class TeleAPI:
                     [
                         [
                             InlineKeyboardButton(
-                                text="ᴄᴀɴᴄᴇʟ",
+                                text="Cancel",
                                 callback_data="stop_downloading",
                             ),
                         ]
@@ -161,7 +160,7 @@ class TeleAPI:
                         int(int(time.time()) - int(speed_counter[message.id]))
                     )
                 except:
-                    elapsed = "0 sᴇᴄᴏɴᴅs"
+                    elapsed = "0 seconds"
                 await mystic.edit_text(_["tg_2"].format(elapsed))
             except:
                 await mystic.edit_text(_["tg_3"])

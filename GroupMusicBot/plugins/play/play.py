@@ -1,18 +1,21 @@
 import random
 import string
+import config
+from config import BANNED_USERS, lyrical
 
 from pyrogram import filters
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
-import config
-from GroupMusicBot import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
-from GroupMusicBot.core.call import Aviax
-from GroupMusicBot.utils import seconds_to_min, time_to_seconds
+from GroupMusicBot.core.call import GMB
+from GroupMusicBot.utils.logger import play_logs
+from GroupMusicBot.utils.formatters import formats
+from GroupMusicBot.utils.stream.stream import stream
+from GroupMusicBot.utils.decorators.play import PlayWrapper
 from GroupMusicBot.utils.channelplay import get_channeplayCB
 from GroupMusicBot.utils.decorators.language import languageCB
-from GroupMusicBot.utils.decorators.play import PlayWrapper
-from GroupMusicBot.utils.formatters import formats
+from GroupMusicBot.utils import seconds_to_min, time_to_seconds
+from GroupMusicBot import Apple, Resso, SoundCloud, Spotify, Telegram, YouTube, app
 from GroupMusicBot.utils.inline import (
     botplaylist_markup,
     livestream_markup,
@@ -20,10 +23,6 @@ from GroupMusicBot.utils.inline import (
     slider_markup,
     track_markup,
 )
-from GroupMusicBot.utils.logger import play_logs
-from GroupMusicBot.utils.stream.stream import stream
-from config import BANNED_USERS, lyrical
-
 
 @app.on_message(
     filters.command(
@@ -190,7 +189,7 @@ async def play_commnd(
             spotify = True
             if not config.SPOTIFY_CLIENT_ID and not config.SPOTIFY_CLIENT_SECRET:
                 return await mystic.edit_text(
-                    "» sᴘᴏᴛɪғʏ ɪs ɴᴏᴛ sᴜᴘᴘᴏʀᴛᴇᴅ ʏᴇᴛ.\n\nᴘʟᴇᴀsᴇ ᴛʀʏ ᴀɢᴀɪɴ ʟᴀᴛᴇʀ."
+                    "Spotify is not supported yet.\n\nPlease try again later."
                 )
             if "track" in url:
                 try:
@@ -291,7 +290,7 @@ async def play_commnd(
             return await mystic.delete()
         else:
             try:
-                await Aviax.stream_call(url)
+                await GMB.stream_call(url)
             except NoActiveGroupCall:
                 await mystic.edit_text(_["black_9"])
                 return await app.send_message(
@@ -512,14 +511,14 @@ async def play_music(client, CallbackQuery, _):
 async def anonymous_check(client, CallbackQuery):
     try:
         await CallbackQuery.answer(
-            "» ʀᴇᴠᴇʀᴛ ʙᴀᴄᴋ ᴛᴏ ᴜsᴇʀ ᴀᴄᴄᴏᴜɴᴛ :\n\nᴏᴘᴇɴ ʏᴏᴜʀ ɢʀᴏᴜᴘ sᴇᴛᴛɪɴɢs.\n-> ᴀᴅᴍɪɴɪsᴛʀᴀᴛᴏʀs\n-> ᴄʟɪᴄᴋ ᴏɴ ʏᴏᴜʀ ɴᴀᴍᴇ\n-> ᴜɴᴄʜᴇᴄᴋ ᴀɴᴏɴʏᴍᴏᴜs ᴀᴅᴍɪɴ ᴘᴇʀᴍɪssɪᴏɴs.",
+            "Revert back to user account:\n\nOpen your group settings.\n- Administrators\n- Click on your name\n- Uncheck anonymous admin permissions.",
             show_alert=True,
         )
     except:
         pass
 
 
-@app.on_callback_query(filters.regex("AviaxPlaylists") & ~BANNED_USERS)
+@app.on_callback_query(filters.regex("GMBPlaylists") & ~BANNED_USERS)
 @languageCB
 async def play_playlists_command(client, CallbackQuery, _):
     callback_data = CallbackQuery.data.strip()

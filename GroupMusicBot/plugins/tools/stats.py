@@ -1,22 +1,22 @@
-import platform
-from sys import version as pyver
-
 import psutil
-from pyrogram import __version__ as pyrover
-from pyrogram import filters
+import config
+import platform
+
+from config import BANNED_USERS
+from sys import version as pyver
 from pyrogram.errors import MessageIdInvalid
 from pyrogram.types import InputMediaPhoto, Message
+from pyrogram import __version__ as pyrover, filters
 from pytgcalls.__version__ import __version__ as pytgver
 
-import config
+
 from GroupMusicBot import app
-from GroupMusicBot.core.userbot import assistants
-from GroupMusicBot.misc import SUDOERS, mongodb
 from GroupMusicBot.plugins import ALL_MODULES
-from GroupMusicBot.utils.database import get_served_chats, get_served_users, get_sudoers
+from GroupMusicBot.misc import SUDOERS, mongodb
+from GroupMusicBot.core.userbot import assistants
 from GroupMusicBot.utils.decorators.language import language, languageCB
 from GroupMusicBot.utils.inline.stats import back_stats_buttons, stats_buttons
-from config import BANNED_USERS
+from GroupMusicBot.utils.database import get_served_chats, get_served_users, get_sudoers
 
 
 @app.on_message(filters.command(["stats", "gstats"]) & filters.group & ~BANNED_USERS)

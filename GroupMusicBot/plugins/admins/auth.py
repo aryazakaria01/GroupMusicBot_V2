@@ -1,7 +1,9 @@
 from pyrogram import filters
 from pyrogram.types import Message
+from config import BANNED_USERS, adminlist
 
 from GroupMusicBot import app
+from GroupMusicBot.utils.inline import close_markup
 from GroupMusicBot.utils import extract_user, int_to_alpha
 from GroupMusicBot.utils.database import (
     delete_authuser,
@@ -10,8 +12,6 @@ from GroupMusicBot.utils.database import (
     save_authuser,
 )
 from GroupMusicBot.utils.decorators import AdminActual, language
-from GroupMusicBot.utils.inline import close_markup
-from config import BANNED_USERS, adminlist
 
 
 @app.on_message(filters.command("auth") & filters.group & ~BANNED_USERS)

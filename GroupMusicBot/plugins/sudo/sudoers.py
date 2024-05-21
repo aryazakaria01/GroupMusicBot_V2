@@ -1,14 +1,13 @@
 from pyrogram import filters
 from pyrogram.types import Message
+from config import BANNED_USERS, OWNER_ID
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
-from GroupMusicBot.utils.database import add_sudo, remove_sudo
-from GroupMusicBot.utils.decorators.language import language
-from GroupMusicBot.utils.extraction import extract_user
 from GroupMusicBot.utils.inline import close_markup
-from config import BANNED_USERS, OWNER_ID
-
+from GroupMusicBot.utils.extraction import extract_user
+from GroupMusicBot.utils.decorators.language import language
+from GroupMusicBot.utils.database import add_sudo, remove_sudo
 
 @app.on_message(filters.command(["addsudo"]) & filters.user(OWNER_ID))
 @language

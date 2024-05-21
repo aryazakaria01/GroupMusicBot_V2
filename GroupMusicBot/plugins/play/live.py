@@ -1,10 +1,10 @@
 from pyrogram import filters
+from config import BANNED_USERS
 
 from GroupMusicBot import YouTube, app
+from GroupMusicBot.utils.stream.stream import stream
 from GroupMusicBot.utils.channelplay import get_channeplayCB
 from GroupMusicBot.utils.decorators.language import languageCB
-from GroupMusicBot.utils.stream.stream import stream
-from config import BANNED_USERS
 
 
 @app.on_callback_query(filters.regex("LiveStream") & ~BANNED_USERS)
@@ -57,5 +57,5 @@ async def play_live_stream(client, CallbackQuery, _):
             err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
             return await mystic.edit_text(err)
     else:
-        return await mystic.edit_text("» ɴᴏᴛ ᴀ ʟɪᴠᴇ sᴛʀᴇᴀᴍ.")
+        return await mystic.edit_text("Not a live stream.")
     await mystic.delete()
