@@ -10,7 +10,7 @@ heroku3
 motor
 numpy
 opencv-python
-pillow==10.3.0
+pillow
 psutil
 py-tgcalls==2.0.1
 pykeyboard
