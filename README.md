@@ -1,10 +1,6 @@
 <h1 align="center">Group Music Bot</h1>
 
 <p align="center">
-  <img src="https://telegra.ph/file/29808c1fd50add3b1bfc6.jpg" alt="Group Music Logo" width="600" height="150">
-</p>
-
-<p align="center">
   <img src="https://img.shields.io/github/stars/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=blue" alt="GitHub stars">
   <img src="https://img.shields.io/github/forks/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=blue" alt="GitHub forks">
   <img src="https://img.shields.io/github/issues/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=red" alt="GitHub issues">
