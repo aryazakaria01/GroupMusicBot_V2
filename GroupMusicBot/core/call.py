@@ -9,12 +9,11 @@ from datetime import datetime, timedelta
 from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 
-from ntgcalls import StreamType
+from ntgcalls import StreamType, TelegramServerError
 from pytgcalls import PyTgCalls
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
-    TelegramServerError,
 )
 from pytgcalls.types import Update, MediaStream, AudioQuality, VideoQuality, StreamAudioEnded
 
