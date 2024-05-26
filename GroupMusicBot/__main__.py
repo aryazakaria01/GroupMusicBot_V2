@@ -43,7 +43,7 @@ async def init():
         await GMB.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
         LOGGER("GroupMusicBot").error(
-            "Please turn on the videochat of your logs group\channel.\n\nStopping Bot..."
+            "Please turn on the videochat of your logs group\channel.\n\nShuting down the bot system..."
         )
         exit()
     except:
