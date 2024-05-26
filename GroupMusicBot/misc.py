@@ -4,7 +4,7 @@ import config
 import heroku3
 
 from pyrogram import filters
-from .logging import LOGGER
+from GroupMusicBot.logging import LOGGER
 from GroupMusicBot.core.mongo import mongodb
 
 SUDOERS = filters.user()
@@ -37,7 +37,7 @@ XCB = [
 def dbb():
     global db
     db = {}
-    LOGGER(__name__).info(f"Local Database Initialized.")
+    LOGGER(__name__).info(f"Local database initialized...")
 
 
 async def sudo():
@@ -56,7 +56,7 @@ async def sudo():
     if sudoers:
         for user_id in sudoers:
             SUDOERS.add(user_id)
-    LOGGER(__name__).info(f"Sudoers Loaded.")
+    LOGGER(__name__).info(f"Sudoers loaded.")
 
 
 def heroku():
@@ -66,8 +66,8 @@ def heroku():
             try:
                 Heroku = heroku3.from_key(config.HEROKU_API_KEY)
                 HAPP = Heroku.app(config.HEROKU_APP_NAME)
-                LOGGER(__name__).info(f"Heroku App Configured")
+                LOGGER(__name__).info(f"Heroku app configured")
             except BaseException:
                 LOGGER(__name__).warning(
-                    f"Please make sure your Heroku API Key and Your App name are configured correctly in the heroku."
+                    f"Please make sure your HEROKU_API_KEY and HEROKU_APP_NAME are configured correctly in the heroku."
                 )
