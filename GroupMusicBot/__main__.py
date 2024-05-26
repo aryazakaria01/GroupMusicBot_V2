@@ -36,14 +36,14 @@ async def init():
     await app.start()
     for all_module in ALL_MODULES:
         importlib.import_module("GroupMusicBot.plugins" + all_module)
-    LOGGER("GroupMusicBot.plugins").info("Successfully Imported Modules...")
+    LOGGER("GroupMusicBot.plugins").info("Successfully imported modules...")
     await userbot.start()
     await GMB.start()
     try:
         await GMB.stream_call("https://te.legra.ph/file/29f784eb49d230ab62e9e.mp4")
     except NoActiveGroupCall:
         LOGGER("GroupMusicBot").error(
-            "Please turn on the videochat of your log group\channel.\n\nStopping Bot..."
+            "Please turn on the videochat of your logs group\channel.\n\nStopping Bot..."
         )
         exit()
     except:
@@ -55,7 +55,7 @@ async def init():
     await idle()
     await app.stop()
     await userbot.stop()
-    LOGGER("GroupMusicBot").info("Stopping Group Music Bot...")
+    LOGGER("GroupMusicBot").info("Stopping the bot...")
 
 
 if __name__ == "__main__":
