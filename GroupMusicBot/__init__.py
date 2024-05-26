@@ -1,14 +1,13 @@
-from GroupMusicBot.core.bot import GMB
-from GroupMusicBot.core.dir import dirr
-from GroupMusicBot.core.git import git
-from GroupMusicBot.core.userbot import Userbot
-from GroupMusicBot.misc import dbb, heroku
-
 from .logging import LOGGER
+from GroupMusicBot.core.bot import GMB
+from GroupMusicBot.core.git import git
+from GroupMusicBot.core.dir import dirr
+from GroupMusicBot.misc import dbb, heroku
+from GroupMusicBot.core.userbot import Userbot
 
-dirr()
 git()
 dbb()
+dirr()
 heroku()
 
 app = GMB()
@@ -18,9 +17,9 @@ userbot = Userbot()
 from .platforms import *
 
 Apple = AppleAPI()
-Carbon = CarbonAPI()
-SoundCloud = SoundAPI()
-Spotify = SpotifyAPI()
 Resso = RessoAPI()
+Carbon = CarbonAPI()
 Telegram = TeleAPI()
 YouTube = YouTubeAPI()
+Spotify = SpotifyAPI()
+SoundCloud = SoundAPI()
