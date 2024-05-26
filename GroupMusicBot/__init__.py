@@ -1,7 +1,7 @@
-from .logging import LOGGER
 from GroupMusicBot.core.bot import GMB
 from GroupMusicBot.core.git import git
 from GroupMusicBot.core.dir import dirr
+from GroupMusicBot.logging import LOGGER
 from GroupMusicBot.misc import dbb, heroku
 from GroupMusicBot.core.userbot import Userbot
 
