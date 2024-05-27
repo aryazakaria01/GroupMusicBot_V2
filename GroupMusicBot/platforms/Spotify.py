@@ -31,7 +31,7 @@ class SpotifyAPI:
         track = self.spotify.track(link)
         ids = track["id"]
         info = track["name"]
-        duration = track["duration_ms"]
+        duration = 20
         for artist in track["artists"]:
             fetched = f' {artist["name"]}'
             if "Various Artists" not in fetched:
