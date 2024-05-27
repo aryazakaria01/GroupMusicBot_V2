@@ -104,3 +104,8 @@ class SpotifyAPI:
             results.append(info)
 
         return results, artist_id
+    
+    async def plays(self, url):
+        plays = self.spotify.start_playback(uris=[url])
+
+        return plays

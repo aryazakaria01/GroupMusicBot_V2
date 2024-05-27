@@ -441,10 +441,7 @@ async def stream(
             return await app.send_message(original_chat_id, "You can't add more than 10 songs to the queue.")
 
         try:
-            sp.start_playback(uris=[link])
-            # file_path, direct = await YouTube.download(
-            #     vidid, mystic, videoid=True, video=status
-            # )
+            await Spotify.plays(link)
         except:
             raise AssistantErr(_["play_14"])
 
