@@ -28,11 +28,11 @@ class SpotifyAPI:
             return False
 
     async def track(self, link: str):
-        # track_id = link.split('/')[-1]
+        track_id = link.split("/")[-1].split("?")[0]
+        track_uri = f"spotify:track:{track_id}"
         track = self.spotify.track(link)
         ids = track["id"]
         info = track["name"]
-        uri = track["uri"]
         duration = 20
         for artist in track["artists"]:
             fetched = f' {artist["name"]}'
@@ -40,7 +40,7 @@ class SpotifyAPI:
                 info += fetched
         track_details = {
             "title": info,
-            "link": uri,
+            "link": track_uri,
             "vidid": ids,
             "duration_min": duration,
             "thumb": SPOTIFY_ARTIST_IMG_URL,
@@ -108,8 +108,6 @@ class SpotifyAPI:
         return results, artist_id
     
     async def plays(self, url):
-        current_playback = self.spotify.current_playback()
-        device_id = current_playback['device']['id']
-        plays = self.spotify.start_playback(device_id=device_id, uris=[url])
+        plays = self.spotify.start_playback(uris=[url])
 
         return plays
