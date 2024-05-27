@@ -49,6 +49,7 @@ async def reload_admin_cache(client, message: Message, _):
 @app.on_message(filters.command(["reboot"]) & filters.group & ~BANNED_USERS)
 @AdminActual
 async def restartbot(client, message: Message, _):
+    chat_id = await get_cmode(message.chat.id)
     mystic = await app.send_message(chat_id, _["reload_4"].format(app.mention))
     await asyncio.sleep(1)
     try:
@@ -64,7 +65,6 @@ async def restartbot(client, message: Message, _):
             await userbot.resolve_peer(message.chat.id)
     except:
         pass
-    chat_id = await get_cmode(message.chat.id)
     if chat_id:
         try:
             got = await app.get_chat(chat_id)
