@@ -2,6 +2,7 @@ import re
 import config
 import spotipy
 
+from config import SPOTIFY_ARTIST_IMG_URL
 from spotipy.oauth2 import SpotifyClientCredentials
 from youtubesearchpython.__future__ import VideosSearch
 
@@ -28,26 +29,35 @@ class SpotifyAPI:
 
     async def track(self, link: str):
         track = self.spotify.track(link)
+        ids = track["id"]
         info = track["name"]
+        duration = track["duration_ms"]
         for artist in track["artists"]:
             fetched = f' {artist["name"]}'
             if "Various Artists" not in fetched:
                 info += fetched
-        results = VideosSearch(info, limit=1)
-        for result in (await results.next())["result"]:
-            ytlink = result["link"]
-            title = result["title"]
-            vidid = result["id"]
-            duration_min = result["duration"]
-            thumbnail = result["thumbnails"][0]["url"].split("?")[0]
         track_details = {
-            "title": title,
-            "link": ytlink,
-            "vidid": vidid,
-            "duration_min": duration_min,
-            "thumb": thumbnail,
+            "title": info,
+            "link": link,
+            "vidid": ids,
+            "duration_min": duration,
+            "thumb": SPOTIFY_ARTIST_IMG_URL,
         }
-        return track_details, vidid
+        # results = VideosSearch(info, limit=1)
+        # for result in (await results.next())["result"]:
+        #     ytlink = result["link"]
+        #     title = result["title"]
+        #     vidid = result["id"]
+        #     duration_min = result["duration"]
+        #     thumbnail = result["thumbnails"][0]["url"].split("?")[0]
+        # track_details = {
+        #     "title": title,
+        #     "link": ytlink,
+        #     "vidid": vidid,
+        #     "duration_min": duration_min,
+        #     "thumb": thumbnail,
+        # }
+        return track_details, ids
 
     async def playlist(self, url):
         playlist = self.spotify.playlist(url)
