@@ -31,6 +31,7 @@ class SpotifyAPI:
         track = self.spotify.track(link)
         ids = track["id"]
         info = track["name"]
+        uri = track["uri"]
         duration = 20
         for artist in track["artists"]:
             fetched = f' {artist["name"]}'
@@ -38,7 +39,7 @@ class SpotifyAPI:
                 info += fetched
         track_details = {
             "title": info,
-            "link": link,
+            "link": uri,
             "vidid": ids,
             "duration_min": duration,
             "thumb": SPOTIFY_ARTIST_IMG_URL,
