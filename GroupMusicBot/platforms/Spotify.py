@@ -28,7 +28,7 @@ class SpotifyAPI:
             return False
 
     async def track(self, link: str):
-        track_id = link.split('/')[-1]
+        track_id = link.split('/')
         track = self.spotify.track(track_id)
         ids = track["id"]
         info = track["name"]
