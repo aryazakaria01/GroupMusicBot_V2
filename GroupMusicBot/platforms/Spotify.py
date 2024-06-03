@@ -23,7 +23,7 @@ class SpotifyAPI:
             )
             self.url = self.spotify.get_authorize_url()
             if self.url:
-                self.auth_url = self.spotify.parse_response_code("https://localhost:3000")
+                self.auth_url = self.spotify.parse_response_code(self.url)
                 self.access_token = self.spotify.get_access_token(self.auth_url, as_dict=True)
                 if self.access_token:
                     self.spotify = spotipy.Spotify(auth=self.access_token)
