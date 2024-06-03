@@ -1,6 +1,6 @@
 import os
 
-from ..logging import LOGGER
+from GroupMusicBot.logging import LOGGER
 
 
 def dirr():

@@ -6,7 +6,7 @@ from typing import Tuple
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
 
-from ..logging import LOGGER
+from GroupMusicBot.logging import LOGGER
 
 
 def install_req(cmd: str) -> Tuple[str, str, int, int]:
@@ -38,9 +38,9 @@ def git():
         UPSTREAM_REPO = config.UPSTREAM_REPO
     try:
         repo = Repo()
-        LOGGER(__name__).info(f"Git Client Found [Powershell Server]")
+        LOGGER(__name__).info("Git Client Found [Powershell Server]")
     except GitCommandError:
-        LOGGER(__name__).info(f"Invalid Git Command")
+        LOGGER(__name__).info("Invalid Git Command")
     except InvalidGitRepositoryError:
         repo = Repo.init()
         if "origin" in repo.remotes:
@@ -66,5 +66,5 @@ def git():
             nrs.pull(config.UPSTREAM_BRANCH)
         except GitCommandError:
             repo.git.reset("--hard", "FETCH_HEAD")
-        install_req("pip3 install --no-cache-dir -r requirements.txt")
-        LOGGER(__name__).info(f"Fetching updates from upstream repository...")
+        install_req("pip3 install -U -r requirements.txt")
+        LOGGER(__name__).info("Fetching updates from upstream repository...")

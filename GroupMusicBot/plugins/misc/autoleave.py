@@ -65,7 +65,7 @@ async def auto_end():
                 try:
                     await app.send_message(
                         chat_id,
-                        "Bot automatically left videochat because no one was listening on videochat.",
+                        "Bot automatically left video chat because no one was listening on video chat.",
                     )
                 except:
                     continue

@@ -1,19 +1,20 @@
 import os
-from random import randint
+import config
+
 from typing import Union
+from random import randint
 
 from pyrogram.types import InlineKeyboardMarkup
 
-import config
-from GroupMusicBot import Carbon, YouTube, app
-from GroupMusicBot.core.call import GMB
 from GroupMusicBot.misc import db
-from GroupMusicBot.utils.database import add_active_video_chat, is_active_chat
-from GroupMusicBot.utils.exceptions import AssistantErr
-from GroupMusicBot.utils.inline import aq_markup, close_markup, stream_markup
+from GroupMusicBot.core.call import GMB
+from GroupMusicBot import Carbon, YouTube, app
 from GroupMusicBot.utils.pastebin import GMBBin
-from GroupMusicBot.utils.stream.queue import put_queue, put_queue_index
 from GroupMusicBot.utils.thumbnails import gen_thumb
+from GroupMusicBot.utils.exceptions import AssistantErr
+from GroupMusicBot.utils.stream.queue import put_queue, put_queue_index
+from GroupMusicBot.utils.inline import aq_markup, close_markup, stream_markup
+from GroupMusicBot.utils.database import add_active_video_chat, is_active_chat
 
 
 async def stream(
@@ -137,10 +138,8 @@ async def stream(
         duration_min = result["duration_min"]
         thumbnail = result["thumb"]
         status = True if video else None
-    
         current_queue = db.get(chat_id)
 
-        
         if current_queue is not None and len(current_queue) >= 10:
             return await app.send_message(original_chat_id, "You can't add more than 10 songs to the queue.")
 
@@ -377,7 +376,7 @@ async def stream(
             db[chat_id][0]["markup"] = "tg"
     elif streamtype == "index":
         link = result
-        title = "ɪɴᴅᴇx ᴏʀ ᴍ3ᴜ8 ʟɪɴᴋ"
+        title = "Index or M3U8 link"
         duration_min = "00:00"
         if await is_active_chat(chat_id):
             await put_queue_index(

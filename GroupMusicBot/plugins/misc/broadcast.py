@@ -36,7 +36,7 @@ async def braodcast_message(client, message, _):
         else:
             content_type = 'text'
             text_content = message.reply_to_message.text
-            
+
         caption = message.reply_to_message.caption
         reply_markup = message.reply_to_message.reply_markup if hasattr(message.reply_to_message, 'reply_markup') else None
 
@@ -82,7 +82,6 @@ async def braodcast_message(client, message, _):
         IS_BROADCASTING = False
         return
 
-    
     if message.reply_to_message:
         x = message.reply_to_message.id
         y = message.chat.id

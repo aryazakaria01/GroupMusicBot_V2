@@ -1,46 +1,44 @@
 import random
-import asyncio
-from datetime import date
 from typing import Dict, List, Union
 
 from GroupMusicBot import userbot
 from GroupMusicBot.core.mongo import mongodb
 
-authdb = mongodb.adminauth
-authuserdb = mongodb.authuser
-autoenddb = mongodb.autoend
-assdb = mongodb.assistants
-blacklist_chatdb = mongodb.blacklistChat
-blockeddb = mongodb.blockedusers
-chatsdb = mongodb.chats
 chatdb = mongodb.chat
-channeldb = mongodb.cplaymode
-countdb = mongodb.upcount
 gbansdb = mongodb.gban
-langdb = mongodb.language
-onoffdb = mongodb.onoffper
-playmodedb = mongodb.playmode
-playtypedb = mongodb.playtypedb
+chatsdb = mongodb.chats
 skipdb = mongodb.skipmode
+countdb = mongodb.upcount
+langdb = mongodb.language
+assdb = mongodb.assistants
+authdb = mongodb.adminauth
+onoffdb = mongodb.onoffper
+autoenddb = mongodb.autoend
 sudoersdb = mongodb.sudoers
 usersdb = mongodb.tgusersdb
+authuserdb = mongodb.authuser
+channeldb = mongodb.cplaymode
+playmodedb = mongodb.playmode
+playtypedb = mongodb.playtypedb
+blockeddb = mongodb.blockedusers
+blacklist_chatdb = mongodb.blacklistChat
 
 # Shifting to memory [mongo sucks often]
-active = []
-activevideo = []
-assistantdict = {}
-autoend = {}
-count = {}
-channelconnect = {}
-langm = {}
 loop = {}
-maintenance = []
-nonadmin = {}
+count = {}
+langm = {}
 pause = {}
+autoend = {}
+nonadmin = {}
 playmode = {}
 playtype = {}
 skipmode = {}
+assistantdict = {}
+channelconnect = {}
 
+active = []
+activevideo = []
+maintenance = []
 
 async def get_assistant_number(chat_id: int) -> str:
     assistant = assistantdict.get(chat_id)

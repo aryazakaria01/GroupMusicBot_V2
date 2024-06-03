@@ -1,8 +1,8 @@
 import re
 import aiohttp
+
 from typing import Union
 from bs4 import BeautifulSoup
-
 from youtubesearchpython.__future__ import VideosSearch
 
 class RessoAPI:

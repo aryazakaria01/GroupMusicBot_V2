@@ -1,9 +1,10 @@
 import asyncio
 from typing import Union
 
+from config import autoclean, time_to_seconds
+
 from GroupMusicBot.misc import db
 from GroupMusicBot.utils.formatters import check_duration, seconds_to_min
-from config import autoclean, time_to_seconds
 
 
 async def put_queue(
@@ -65,7 +66,7 @@ async def put_queue_index(
             )
             duration = seconds_to_min(dur)
         except:
-            duration = "ᴜʀʟ sᴛʀᴇᴀᴍ"
+            duration = "Url stream"
             dur = 0
     else:
         dur = 0

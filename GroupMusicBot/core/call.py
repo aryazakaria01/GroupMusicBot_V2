@@ -10,12 +10,12 @@ from pyrogram import Client
 from pyrogram.types import InlineKeyboardMarkup
 
 from ntgcalls import StreamType, TelegramServerError
-from pytgcalls import PyTgCalls
+from pytgcalls import PyTgCalls, filters
 from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
 )
-from pytgcalls.types import Update, MediaStream, AudioQuality, VideoQuality, StreamAudioEnded
+from pytgcalls.types import Update, MediaStream, AudioQuality, VideoQuality, StreamAudioEnded, ChatUpdate
 
 from GroupMusicBot.misc import db
 from GroupMusicBot import LOGGER, YouTube, app
@@ -198,6 +198,7 @@ class Call(PyTgCalls):
             else MediaStream(
                 out,
                 AudioQuality.STUDIO,
+                VideoQuality.FHD_1080p,
                 ffmpeg_parameters=f"-ss {played} -to {duration}",
             )
         )
@@ -235,7 +236,6 @@ class Call(PyTgCalls):
         chat_id: int,
         link: str,
         video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         if video:
@@ -245,7 +245,7 @@ class Call(PyTgCalls):
                 VideoQuality.FHD_1080p,
             )
         else:
-            stream = MediaStream(link, AudioQuality.STUDIO)
+            stream = MediaStream(link, AudioQuality.STUDIO, VideoQuality.FHD_1080p,)
         await assistant.play(
             chat_id,
             stream,
@@ -264,6 +264,7 @@ class Call(PyTgCalls):
             else MediaStream(
                 file_path,
                 AudioQuality.STUDIO,
+                VideoQuality.FHD_1080p,
                 ffmpeg_parameters=f"-ss {to_seek} -to {duration}",
             )
         )
@@ -284,7 +285,6 @@ class Call(PyTgCalls):
         original_chat_id: int,
         link,
         video: Union[bool, str] = None,
-        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
@@ -303,7 +303,7 @@ class Call(PyTgCalls):
                     VideoQuality.FHD_1080p,
                 )
                 if video
-                else MediaStream(link, AudioQuality.STUDIO)
+                else MediaStream(link, AudioQuality.STUDIO, VideoQuality.FHD_1080p,)
             )
         try:
             await assistant.play(
@@ -380,6 +380,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         link,
                         AudioQuality.STUDIO,
+                        VideoQuality.FHD_1080p,
                     )
                 try:
                     await client.play(chat_id, stream)
@@ -426,6 +427,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         file_path,
                         AudioQuality.STUDIO,
+                        VideoQuality.FHD_1080p,
                     )
                 try:
                     await client.play(chat_id, stream)
@@ -458,7 +460,7 @@ class Call(PyTgCalls):
                         VideoQuality.FHD_1080p,
                     )
                     if str(streamtype) == "video"
-                    else MediaStream(videoid, AudioQuality.STUDIO)
+                    else MediaStream(videoid, AudioQuality.STUDIO, VideoQuality.FHD_1080p,)
                 )
                 try:
                     await client.play(chat_id, stream)
@@ -487,6 +489,7 @@ class Call(PyTgCalls):
                     stream = MediaStream(
                         queued,
                         AudioQuality.STUDIO,
+                        VideoQuality.FHD_1080p,
                     )
                 try:
                     await client.play(chat_id, stream)
