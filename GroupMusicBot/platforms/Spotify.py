@@ -21,8 +21,7 @@ class SpotifyAPI:
                     client_id=self.client_id,
                     client_secret=self.client_secret,
                     redirect_uri="https://localhost:3000",
-                    scope="user-read-playback-state",
-                    cache=".spotipyoauthcache"
+                    scope="user-read-playback-state"
                 )
             )
             self.token_info =self.spotify.get_cached_token()
