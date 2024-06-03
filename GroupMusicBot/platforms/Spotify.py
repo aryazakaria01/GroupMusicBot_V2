@@ -15,13 +15,11 @@ class SpotifyAPI:
             self.client_credentials_manager = SpotifyClientCredentials(
                 self.client_id, self.client_secret
             )
-            self.spotify = spotipy.Spotify(
-                auth_manager=SpotifyOAuth(
-                    client_id=self.client_id,
-                    client_secret=self.client_secret,
-                    redirect_uri="https://localhost:3000",
-                    scope="user-read-playback-state"
-                )
+            self.spotify = SpotifyOAuth(
+                client_id=self.client_id,
+                client_secret=self.client_secret,
+                redirect_uri="https://localhost:3000",
+                scope="user-read-playback-state"
             )
             self.token_info = self.spotify.get_authorize_url()
             if self.token_info:
