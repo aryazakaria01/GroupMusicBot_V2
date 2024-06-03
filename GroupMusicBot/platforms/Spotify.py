@@ -15,20 +15,23 @@ class SpotifyAPI:
             self.client_credentials_manager = SpotifyClientCredentials(
                 self.client_id, self.client_secret
             )
-            self.spotify = SpotifyOAuth(
-                client_id=self.client_id,
-                client_secret=self.client_secret,
-                redirect_uri="https://localhost:3000",
-                scope="user-top-read"
+            self.spotify = spotipy.Spotify(
+                client_credentials_manager=self.client_credentials_manager
             )
-            self.url = self.spotify.get_authorize_url()
-            if self.url:
-                self.auth_url = self.spotify.parse_response_code(self.url)
-                self.access_token = self.spotify.get_access_token(self.auth_url, as_dict=True)
-                if self.access_token:
-                    self.spotify = spotipy.Spotify(auth=self.access_token)
-                    self.current_user = self.user.current_user()
-                    self.the_device = self.spotify.devices()
+            # self.spotify = SpotifyOAuth(
+            #     client_id=self.client_id,
+            #     client_secret=self.client_secret,
+            #     redirect_uri="https://localhost:3000",
+            #     scope="user-library-read"
+            # )
+            # self.url = self.spotify.get_authorize_url()
+            # if self.url:
+            #     self.auth_url = self.spotify.parse_response_code(self.url)
+            #     self.access_token = self.spotify.get_access_token(self.auth_url, as_dict=True)
+            #     if self.access_token:
+            #         self.spotify = spotipy.Spotify(auth=self.access_token)
+            #         self.current_user = self.user.current_user()
+            #         self.the_device = self.spotify.devices()
         else:
             self.spotify = None
 
@@ -123,11 +126,11 @@ class SpotifyAPI:
         # device_id = current_playback['device']['id']
         # plays = self.spotify.start_playback(device_id=device_id, uris=[url])
         device_id = None
-        for device in self.the_device:
-            print(f"Device name: {device['name']}, Device ID: {device['id']}")
-            if device['name'] == "mkn85jayo3fa2p6oc8vybd369":
-                device_id = device['id']
-                break
+        # for device in self.the_device:
+        #     print(f"Device name: {device['name']}, Device ID: {device['id']}")
+        #     if device['name'] == "mkn85jayo3fa2p6oc8vybd369":
+        #         device_id = device['id']
+        #         break
 
         plays = self.spotify.start_playback(device_id=device_id,uris=[url])
 
