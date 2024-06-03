@@ -7,13 +7,17 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      
       - uses: actions/setup-python@v2
+      
       - name: Install black
         run: |
           python -m pip install --upgrade pip
           python -m pip install -U black
+      
       - name: Run black
         run: black GroupMusicBot
+      
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         with:
@@ -26,3 +30,6 @@ jobs:
           author: ${{ github.actor }} <${{ github.actor }}@sakuraunion.net>
           signoff: true
           delete-branch: true
+        env:
+          GITHUB_TOKEN: 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
+
