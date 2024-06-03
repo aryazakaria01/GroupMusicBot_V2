@@ -26,13 +26,15 @@ class SpotifyAPI:
                 self.access_token = self.token_info['access_token']
             else:
                 self.auth_url = self.spotify.parse_response_code("https://localhost:3000")
-                if self.code:
-                    self.token_info = self.spotify.get_access_token(self.auth_url)
+                self.token_info = self.spotify.get_access_token(self.auth_url, as_dict=False)
+                if isinstance(self.token_info, dict) and 'access_token' in self.token_info:
                     self.access_token = self.token_info['access_token']
-            if self.access_token:
-                self.spotify = spotipy.Spotify(auth=self.access_token)
-                self.current_user = self.user.current_user()
-            self.the_device = self.spotify.devices()
+                    if self.access_token:
+                        self.spotify = spotipy.Spotify(auth=self.access_token)
+                        self.current_user = self.user.current_user()
+                        self.the_device = self.spotify.devices()
+                    else:
+                        print("Failed to obtain access token. Please check the token_info output.")
         else:
             self.spotify = None
 
