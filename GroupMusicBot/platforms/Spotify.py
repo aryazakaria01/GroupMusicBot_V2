@@ -5,7 +5,6 @@ import spotipy
 from config import SPOTIFY_ARTIST_IMG_URL
 from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 from youtubesearchpython.__future__ import VideosSearch
-from bottle import request
 
 class SpotifyAPI:
     def __init__(self):
@@ -24,12 +23,11 @@ class SpotifyAPI:
                     scope="user-read-playback-state"
                 )
             )
-            self.token_info =self.spotify.get_cached_token()
+            self.token_info = self.spotify.get_authorize_url()
             if self.token_info:
                 self.access_token = self.token_info['access_token']
             else:
-                self.url = request.url
-                self.auth_url = self.spotify.parse_response_code(self.url)
+                self.auth_url = self.spotify.parse_response_code("https://localhost:3000")
                 if self.code:
                     self.token_info = self.spotify.get_access_token(self.auth_url)
                     self.access_token = self.token_info['access_token']
