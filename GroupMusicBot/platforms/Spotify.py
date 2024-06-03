@@ -18,6 +18,7 @@ class SpotifyAPI:
             self.spotify = spotipy.Spotify(
                 client_credentials_manager=self.client_credentials_manager
             )
+            self.device = self.spotify.device()
         else:
             self.spotify = None
 
@@ -111,6 +112,13 @@ class SpotifyAPI:
         # current_playback = self.spotify.current_playback()
         # device_id = current_playback['device']['id']
         # plays = self.spotify.start_playback(device_id=device_id, uris=[url])
-        plays = self.spotify.start_playback(uris=[url])
+        device_id = None
+        for device in self.device:
+            print(f"Device name: {device['name']}, Device ID: {device['id']}")
+            if device['name'] == "musicbot":
+                device_id = device['id']
+                break
+
+        plays = self.spotify.start_playback(device_id=device_id,uris=[url])
 
         return plays
