@@ -19,7 +19,7 @@ class SpotifyAPI:
                 client_id=self.client_id,
                 client_secret=self.client_secret,
                 redirect_uri="https://localhost:3000",
-                scope="user-read-playback-state"
+                scope="user-top-read"
             )
             self.token_info = self.spotify.get_authorize_url()
             if self.token_info:
@@ -28,7 +28,7 @@ class SpotifyAPI:
                 self.auth_url = self.spotify.parse_response_code("https://localhost:3000")
                 self.token_info = self.spotify.get_access_token(self.auth_url, as_dict=True)
                 if isinstance(self.token_info, dict) and 'access_token' in self.token_info:
-                    self.access_token = self.token_info['access_token']
+                    self.access_token = int(self.token_info['access_token'])
                     if self.access_token:
                         self.spotify = spotipy.Spotify(auth=self.access_token)
                         self.current_user = self.user.current_user()
