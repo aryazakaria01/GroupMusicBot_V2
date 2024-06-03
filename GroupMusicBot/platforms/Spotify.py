@@ -3,7 +3,7 @@ import config
 import spotipy
 
 from config import SPOTIFY_ARTIST_IMG_URL
-from spotipy.oauth2 import SpotifyClientCredentials
+from spotipy.oauth2 import SpotifyClientCredentials, SpotifyOAuth
 from youtubesearchpython.__future__ import VideosSearch
 
 class SpotifyAPI:
@@ -16,9 +16,14 @@ class SpotifyAPI:
                 self.client_id, self.client_secret
             )
             self.spotify = spotipy.Spotify(
-                client_credentials_manager=self.client_credentials_manager
+                auth_manager=SpotifyOAuth(
+                    client_id=self.client_id,
+                    client_secret=self.client_secret,
+                    redirect_uri="https://localhost:3000",
+                    scope="user-read-playback-state"
+                )
             )
-            self.device = self.spotify.devices()
+            self.the_device = self.spotify.devices()
         else:
             self.spotify = None
 
@@ -113,7 +118,7 @@ class SpotifyAPI:
         # device_id = current_playback['device']['id']
         # plays = self.spotify.start_playback(device_id=device_id, uris=[url])
         device_id = None
-        for device in self.device:
+        for device in self.the_device:
             print(f"Device name: {device['name']}, Device ID: {device['id']}")
             if device['name'] == "mkn85jayo3fa2p6oc8vybd369":
                 device_id = device['id']
