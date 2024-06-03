@@ -18,7 +18,7 @@ class SpotifyAPI:
             self.spotify = spotipy.Spotify(
                 client_credentials_manager=self.client_credentials_manager
             )
-            self.device = self.spotify.device()
+            self.device = self.spotify.devices()
         else:
             self.spotify = None
 
