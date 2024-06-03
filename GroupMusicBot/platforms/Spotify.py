@@ -115,7 +115,7 @@ class SpotifyAPI:
         device_id = None
         for device in self.device:
             print(f"Device name: {device['name']}, Device ID: {device['id']}")
-            if device['name'] == "musicbot":
+            if device['name'] == "mkn85jayo3fa2p6oc8vybd369":
                 device_id = device['id']
                 break
 
