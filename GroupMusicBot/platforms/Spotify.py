@@ -21,10 +21,8 @@ class SpotifyAPI:
                 redirect_uri="https://localhost:3000",
                 scope="user-top-read"
             )
-            self.token_info = self.spotify.get_authorize_url()
-            if self.token_info:
-                self.access_token = self.token_info['access_token']
-            else:
+            self.url = self.spotify.get_authorize_url()
+            if self.url:
                 self.auth_url = self.spotify.parse_response_code("https://localhost:3000")
                 self.access_token = self.spotify.get_access_token(self.auth_url, as_dict=True)
                 if self.access_token:
