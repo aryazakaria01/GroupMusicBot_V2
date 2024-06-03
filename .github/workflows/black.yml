@@ -31,5 +31,5 @@ jobs:
           signoff: true
           delete-branch: true
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: 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
 
