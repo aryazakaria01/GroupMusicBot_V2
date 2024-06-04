@@ -1,4 +1,5 @@
 import os
+import sys
 import config
 import shutil
 import socket
@@ -32,9 +33,9 @@ async def is_heroku():
 @language
 async def log_(client, message, _):
     try:
-        await message.reply_document(document="log.txt")
+        await app.send_document(document="log.txt")
     except:
-        await message.reply_text(_["server_1"])
+        await app.send_message(_["server_1"])
 
 
 @app.on_message(filters.command(["update", "gitpull"]) & SUDOERS)
@@ -42,8 +43,8 @@ async def log_(client, message, _):
 async def update_(client, message, _):
     if await is_heroku():
         if HAPP is None:
-            return await message.reply_text(_["server_2"])
-    response = await message.reply_text(_["server_3"])
+            return await app.send_message(_["server_2"])
+    response = await app.send_message(_["server_3"])
     try:
         repo = Repo()
     except GitCommandError:
@@ -108,7 +109,7 @@ async def update_(client, message, _):
     else:
         os.system("pip3 install -U -r requirements.txt")
         os.system(f"kill -9 {os.getpid()} && bash start")
-        exit()
+        sys.exit()
 
 
 @app.on_message(filters.command(["restart"]) & SUDOERS)
