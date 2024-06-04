@@ -1,3 +1,4 @@
+import sys
 import config
 
 from pyrogram import Client, errors
@@ -16,7 +17,8 @@ class GMB(Client):
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
             parse_mode=ParseMode.HTML,
-            max_concurrent_transmissions=7,
+            sleep_threshold=10,
+            max_concurrent_transmissions=5,
         )
 
     async def start(self):
@@ -47,7 +49,7 @@ class GMB(Client):
             LOGGER(__name__).error(
                 "Please promote your bot as an admin in your log group/channel."
             )
-            exit()
+            sys.exit()
         LOGGER(__name__).info(f"Music bot started as {self.name}")
 
     async def stop(self):
