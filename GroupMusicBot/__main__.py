@@ -1,3 +1,4 @@
+import sys
 import config
 import asyncio
 import importlib
@@ -22,7 +23,7 @@ async def init():
         and not config.STRING5
     ):
         LOGGER(__name__).error("Assistant client variables not defined, exiting...")
-        exit()
+        sys.exit()
     await sudo()
     try:
         users = await get_gbanned()
@@ -45,7 +46,7 @@ async def init():
         LOGGER("GroupMusicBot").error(
             "Please turn on the video chat of your logs group\channel.\n\nShuting down the bot system..."
         )
-        exit()
+        sys.exit()
     except:
         pass
     await GMB.decorators()
