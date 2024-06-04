@@ -1,10 +1,10 @@
 <h1 align="center">Group Music Bot</h1>
 
 <p align="center">
-  <img src="https://img.shields.io/github/stars/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=blue" alt="GitHub stars">
-  <img src="https://img.shields.io/github/forks/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=blue" alt="GitHub forks">
-  <img src="https://img.shields.io/github/issues/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=red" alt="GitHub issues">
-  <img src="https://img.shields.io/github/license/aryazakaria01/GroupMusicBot_V2?style=for-the-badge&color=green" alt="GitHub license">
+  <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=stars&query=stargazers_count&url=https://api.github.com/repos/aryazakaria01/GroupMusicBot_V2&style=for-the-badge&token=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" alt="GitHub stars">
+  <img src="https://img.shields.io/badge/dynamic/json?color=blue&label=forks&query=forks_count&url=https://api.github.com/repos/aryazakaria01/GroupMusicBot_V2&style=for-the-badge&token=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" alt="GitHub forks">
+  <img src="https://img.shields.io/badge/dynamic/json?color=red&label=issues&query=open_issues_count&url=https://api.github.com/repos/aryazakaria01/GroupMusicBot_V2&style=for-the-badge&token=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" alt="GitHub issues">
+  <img src="https://img.shields.io/badge/dynamic/json?color=green&label=license&query=license.spdx_id&url=https://api.github.com/repos/aryazakaria01/GroupMusicBot_V2&style=for-the-badge&token=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" alt="GitHub license">
 </p>
 
 <h2 align="center">Delivering Superior Music Experience to Telegram</h2>
