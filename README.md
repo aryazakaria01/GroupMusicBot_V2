@@ -56,7 +56,7 @@
    - Edit .env with your vars
 8. **Editing Vars:**
    ```bash
-   vi .env
+   nano .env
    ```
    - Edit .env with your values.
    - Press `I` button on keyboard to start editing.
