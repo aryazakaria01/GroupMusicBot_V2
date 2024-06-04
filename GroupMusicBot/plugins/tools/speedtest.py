@@ -8,30 +8,34 @@ from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
 from GroupMusicBot.utils.decorators.language import language
 
-
-def testspeed(m, _):
+def testspeed(m, strings):
     try:
         test = speedtest.Speedtest()
         test.get_best_server()
-        m = m.edit_text(_["server_12"])
+        m.edit_text(strings["server_12"])
         test.download()
-        m = m.edit_text(_["server_13"])
+        m.edit_text(strings["server_13"])
         test.upload()
         test.results.share()
         result = test.results.dict()
-        m = m.edit_text(_["server_14"])
+        m.edit_text(strings["server_14"])
     except Exception as e:
-        return m.edit_text(f"<code>{e}</code>")
+        m.edit_text(f"<code>{e}</code>")
+        return None
     return result
 
 
 @app.on_message(filters.command(["speedtest", "spt"]) & SUDOERS)
 @language
-async def speedtest_function(client, message: Message, _):
-    m = await message.reply_text(_["server_11"])
+async def speedtest_function(client, message: Message, strings: dict):
+    m = await app.send_message(strings["server_11"])
     loop = asyncio.get_event_loop()
-    result = await loop.run_in_executor(None, testspeed, m, _)
-    output = _["server_15"].format(
+    result = await loop.run_in_executor(None, testspeed, m, strings)
+
+    if result is None:
+        return  # Exit if there was an error in testspeed function
+
+    output = strings["server_15"].format(
         result["client"]["isp"],
         result["client"]["country"],
         result["server"]["name"],
@@ -41,5 +45,5 @@ async def speedtest_function(client, message: Message, _):
         result["server"]["latency"],
         result["ping"],
     )
-    msg = await message.reply_photo(photo=result["share"], caption=output)
+    await app.send_photo(photo=result["share"], caption=output)
     await m.delete()
