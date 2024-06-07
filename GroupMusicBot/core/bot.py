@@ -17,8 +17,7 @@ class GMB(Client):
             api_hash=config.API_HASH,
             bot_token=config.BOT_TOKEN,
             parse_mode=ParseMode.HTML,
-            sleep_threshold=10,
-            max_concurrent_transmissions=5,
+            max_concurrent_transmissions=7,
         )
 
     async def start(self):
