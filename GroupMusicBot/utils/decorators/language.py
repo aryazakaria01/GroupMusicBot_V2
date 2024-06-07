@@ -1,4 +1,5 @@
 from config import SUPPORT_GROUP
+from strings import get_string
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
