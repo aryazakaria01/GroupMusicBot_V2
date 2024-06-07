@@ -2,7 +2,7 @@ import logging
 
 logging.basicConfig(
     level=logging.INFO,
-    format="[ %(asctime)s: %(levelname)-8s ] %(name)-15s - %(message)s",
+    format="[%(asctime)s: %(levelname)-8s]%(name)-15s - %(message)s",
     datefmt="%H:%M:%S",
     handlers=[
         logging.FileHandler("MusicLogs.txt"),
