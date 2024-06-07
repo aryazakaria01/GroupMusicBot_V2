@@ -1,6 +1,7 @@
 from pyrogram import filters
-from config import BANNED_USERS
+from pyrogram.enums import ParseMode
 
+from config import BANNED_USERS
 from GroupMusicBot import YouTube, app
 from GroupMusicBot.utils.stream.stream import stream
 from GroupMusicBot.utils.channelplay import get_channeplayCB
@@ -55,7 +56,7 @@ async def play_live_stream(client, CallbackQuery, _):
             print(f"Error: {e}")
             ex_type = type(e).__name__
             err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-            return await mystic.edit_text(err)
+            return await mystic.edit_text(err, ParseMode.MARKDOWN)
     else:
         return await mystic.edit_text("Not a live stream.")
     await mystic.delete()
