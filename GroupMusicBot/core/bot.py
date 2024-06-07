@@ -30,7 +30,7 @@ class GMB(Client):
         try:
             await self.send_message(
                 chat_id=config.LOG_GROUP_ID,
-                text=f"<u><b>» {self.mention} bot started :</b><u>\n\nUser ID: <code>{self.id}</code>\nName: {self.name}\nUsername: @{self.username}",
+                text=f"<u><b>{self.mention} bot started :</b><u>\n\nUser ID: <code>{self.id}</code>\nName: {self.name}\nUsername: @{self.username}",
             )
         except (errors.ChannelInvalid, errors.PeerIdInvalid):
             LOGGER(__name__).error(
