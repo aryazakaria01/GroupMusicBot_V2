@@ -46,5 +46,5 @@ async def speedtest_function(client, message: Message, strings: dict):
         result["server"]["latency"],
         result["ping"],
     )
-    await app.send_photo(photo=result["share"], caption=output)
+    await app.send_photo(chat_id=config.LOG_GROUP_ID, photo=result["share"], caption=output)
     await m.delete()
