@@ -62,7 +62,7 @@ class Call(PyTgCalls):
         )
         self.userbot2 = Client(
             name="Assistant2",
-            in_memory=True
+            in_memory=True,
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING2),
@@ -73,7 +73,7 @@ class Call(PyTgCalls):
         )
         self.userbot3 = Client(
             name="Assistant3",
-            in_memory=True
+            in_memory=True,
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING3),
@@ -84,7 +84,7 @@ class Call(PyTgCalls):
         )
         self.userbot4 = Client(
             name="Assistant4",
-            in_memory=True
+            in_memory=True,
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING4),
@@ -95,7 +95,7 @@ class Call(PyTgCalls):
         )
         self.userbot5 = Client(
             name="Assistant5",
-            in_memory=True
+            in_memory=True,
             api_id=config.API_ID,
             api_hash=config.API_HASH,
             session_string=str(config.STRING5),
