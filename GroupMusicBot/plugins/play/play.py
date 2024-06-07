@@ -4,6 +4,7 @@ import config
 from config import BANNED_USERS, lyrical
 
 from pyrogram import filters
+from pyrogram.enums import ParseMode
 from pyrogram.types import InlineKeyboardMarkup, InputMediaPhoto, Message
 from pytgcalls.exceptions import NoActiveGroupCall
 
@@ -107,7 +108,7 @@ async def play_commnd(
                 print(f"Error: {e}")
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                return await mystic.edit_text(err, ParseMode.MARKDOWN)
             return await mystic.delete()
         return
     elif video_telegram:
@@ -152,7 +153,7 @@ async def play_commnd(
                 print(f"Error: {e}")
                 ex_type = type(e).__name__
                 err = e if ex_type == "AssistantErr" else _["general_2"].format(ex_type)
-                return await mystic.edit_text(err)
+                return await mystic.edit_text(err, ParseMode.MARKDOWN)
             return await mystic.delete()
         return
     elif url:
