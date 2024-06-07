@@ -85,7 +85,7 @@ async def stream(
                     original_chat_id,
                     file_path,
                     video=status,
-                    image=thumbnail,
+                    #image=thumbnail,
                 )
                 await put_queue(
                     chat_id,
@@ -177,7 +177,7 @@ async def stream(
                 original_chat_id,
                 file_path,
                 video=status,
-                image=thumbnail,
+                #image=thumbnail,
             )
             await put_queue(
                 chat_id,
