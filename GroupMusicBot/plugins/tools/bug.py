@@ -31,4 +31,4 @@ async def bug(_, message):
                    f"**Bug Report:** {bug_description}")
     await app1.send_message(LOG_GROUP_ID, log_message,
                             reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("View Message", url=message.link)],
-                                                              [InlineKeyboardButton("Close", callback_data="cls")]])
+                                                              [InlineKeyboardButton("Close", callback_data="cls")]]))
