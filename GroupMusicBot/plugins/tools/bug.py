@@ -7,7 +7,7 @@ from pyrogram.types import (
     InlineKeyboardMarkup,
     Message,
 )
-from GroupMusicBot import userbot
+from GroupMusicBot import app1
 from config import COMMAND_PREFIXES as cmd, LOG_GROUP_ID
 
 
@@ -23,7 +23,7 @@ def get_text(message: Message) -> Optional[str]:
         return None
 
 
-@userbot.on_message(filters.regex(f"^{cmd}bug"))
+@app1.on_message(filters.regex(f"^{cmd}bug"))
 async def bug(_, message: Message):
     chat_id = message.chat.id
     memek = await app.export_chat_invite_link(message.chat.id)
