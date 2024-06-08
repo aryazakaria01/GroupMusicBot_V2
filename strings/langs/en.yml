@@ -305,3 +305,7 @@ gban_9 : "𝖫𝗂𝖿𝗍𝖾𝖽 𝖦𝗅𝗈𝖻𝖺𝗅 𝖡𝖺𝗇 𝖥�
 gban_10 : "𝖭𝗈 𝖮𝗇𝖾 𝖨 𝖦𝗅𝗈𝖻𝖺𝗅𝗅𝗒 𝖡𝖺𝗇𝗇𝖾𝖽 𝖥𝗋𝗈𝗆 𝖳𝗁𝖾 𝖡𝗈𝗍 ."
 gban_11 : "𝖥𝖾𝗍𝖼𝗁𝗂𝗇𝗀 g𝖻𝖺𝗇𝗇𝖾𝖽 u𝗌𝖾𝗋𝗌 li𝗌𝗍..."
 gban_12 : "<b>𝖦𝗅𝗈𝖻𝖺𝗅𝗅𝗒 b𝖺𝗇𝗇𝖾𝖽 u𝗌𝖾𝗋𝗌:</b>\n\n"
+
+bug_btn: "Go To Message"
+bug_spt: "__Give me something to report a bug to my [Support group](https://t.me/FumikaSupportGroup)__"
+bug_sended: "✅ [ {} ] was submitted to support groups. Thanks for reporting the bug."
