@@ -1,9 +1,9 @@
-from GroupMusicBot import app
+from GroupMusicBot import app1
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
 
-@app.on_message(filters.command("bug") & filters.me)
+@app1.on_message(filters.command("bug") & filters.me)
 async def bug_command(_, message):
     chat_id = message.chat.id
     user_id = message.from_user.id
