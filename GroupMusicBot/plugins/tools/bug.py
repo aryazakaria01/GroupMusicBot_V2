@@ -24,7 +24,7 @@ def get_text(message: Message) -> Optional[str]:
 
 
 @app.on_message(filters.regex(f"^{cmd}bug"))
-async def bug(_, message: Message, _):
+async def bug(_, message: Message):
     chat_id = message.chat.id
     memek = await app.export_chat_invite_link(message.chat.id)
     bugnya = get_text(message)
