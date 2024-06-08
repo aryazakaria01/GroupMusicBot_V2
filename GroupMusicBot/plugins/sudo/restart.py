@@ -43,8 +43,8 @@ async def log_(client, message, _):
 async def update_(client, message, _):
     if await is_heroku():
         if HAPP is None:
-            return await app.send_message(_["server_2"])
-    response = await app.send_message(_["server_3"])
+            return await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_2"])
+    response = await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_3"])
     try:
         repo = Repo()
     except GitCommandError:
