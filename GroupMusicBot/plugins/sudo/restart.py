@@ -35,7 +35,7 @@ async def log_(client, message, _):
     try:
         await app.send_document(document="log.txt")
     except:
-        await app.send_message(_["server_1"])
+        await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_1"])
 
 
 @app.on_message(filters.command(["update", "gitpull"]) & SUDOERS)
