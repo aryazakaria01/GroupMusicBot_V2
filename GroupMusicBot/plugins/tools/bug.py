@@ -1,17 +1,10 @@
-from config import API_ID, API_HASH, BOT_TOKEN
+from GroupMusicBot import app
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-app1 = Client(
-    name="group",
-    api_id=API_ID,
-    api_hash=API_HASH,
-    bot_token=BOT_TOKEN,
-    in_memory=True,
-)
 
-@app1.on_message(filters.command("bug") & filters.me)
-async def bug(_, message):
+@app.on_message(filters.command("bug") & filters.me)
+async def bug_command(_, message):
     chat_id = message.chat.id
     user_id = message.from_user.id
     user_name = message.from_user.first_name
@@ -35,6 +28,6 @@ async def bug(_, message):
                    f"**User ID:** {user_id}\n"
                    f"**Username:** @{message.from_user.username}\n\n"
                    f"**Bug Report:** {bug_description}")
-    await app1.send_message(LOG_GROUP_ID, log_message,
-                            reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("View Message", url=message.link)],
-                                                              [InlineKeyboardButton("Close", callback_data="cls")]]))
+    await app.send_message(LOG_GROUP_ID, log_message,
+                           reply_markup=InlineKeyboardMarkup([[InlineKeyboardButton("View Message", url=message.link)],
+                                                             [InlineKeyboardButton("Close", callback_data="cls")]]))
