@@ -1,3 +1,4 @@
+from pyrogram import Client
 from config import API_ID, API_HASH, BOT_TOKEN
 
 from GroupMusicBot.core.bot import GMB
@@ -16,10 +17,10 @@ app = GMB()
 userbot = Userbot()
 app1 = Client(
     name="Gcp",
+    in_memory=True,
     api_id=API_ID,
     api_hash=API_HASH,
     bot_token=BOT_TOKEN,
-    in_memory=True,
 )
 
 from .platforms import *
