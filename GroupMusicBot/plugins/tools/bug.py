@@ -1,5 +1,3 @@
-import os
-
 from GroupMusicBot import app1
 from pyrogram import Client, filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
@@ -12,7 +10,7 @@ async def bug(_, message):
     mention = f"[{user_name}](tg://user?id={user_id})"
     
     # Extracting bug description from message
-    bug_description = " ".join(message.command[1:])
+    bug_description = message.text.split(None, 1)[1] if len(message.text.split()) > 1 else None
     
     if not bug_description:
         await app1.send_message(chat_id, "Please provide a description of the bug.")
