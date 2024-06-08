@@ -15,7 +15,7 @@ heroku()
 
 app = GMB()
 userbot = Userbot()
-app = Client(
+app1 = Client(
     name="Gcp",
     in_memory=True,
     api_id=API_ID,
