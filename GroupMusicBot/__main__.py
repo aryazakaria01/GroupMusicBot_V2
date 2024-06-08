@@ -10,7 +10,7 @@ from config import BANNED_USERS
 from GroupMusicBot.misc import sudo
 from GroupMusicBot.core.call import GMB
 from GroupMusicBot.plugins import ALL_MODULES
-from GroupMusicBot import LOGGER, app, userbot
+from GroupMusicBot import LOGGER, app, userbot, app1
 from GroupMusicBot.utils.database import get_banned_users, get_gbanned
 
 
@@ -61,3 +61,4 @@ async def init():
 
 if __name__ == "__main__":
     asyncio.get_event_loop().run_until_complete(init())
+    app1.start()
