@@ -15,7 +15,7 @@ from git.exc import GitCommandError, InvalidGitRepositoryError
 
 from GroupMusicBot import app, LOGGER
 from GroupMusicBot.utils.pastebin import GMBBin
-from GroupMusicBot.misc import HAPP, SUDOERS, XCB
+from GroupMusicBot.misc import HAPP, XCB
 from GroupMusicBot.utils.database import (
     get_active_chats,
     remove_active_chat,
@@ -123,28 +123,30 @@ async def update_(client, message, _):
         sys.exit()
 
 
-@app.on_message(filters.command(["restart"]) & SUDOERS)
-async def restart_(_, message):
+@app.on_message(filters.command("restart") & filters.user(SUDOERS))
+async def restart_(client, message: Message):
     response = await message.reply_text("Restarting the bots...")
+    
     ac_chats = await get_active_chats()
-    for x in ac_chats:
+    for chat_id in ac_chats:
         try:
-            await app.send_message(
-                chat_id=int(x),
-                text=f"{app.mention} is restarting...\n\nYou can start playing again after 15-20 seconds.",
+            await client.send_message(
+                chat_id=int(chat_id),
+                text=f"{client.mention} is restarting...\n\nYou can start playing again after 15-20 seconds.",
             )
-            await remove_active_chat(x)
-            await remove_active_video_chat(x)
-        except:
-            pass
+            await remove_active_chat(chat_id)
+            await remove_active_video_chat(chat_id)
+        except Exception as e:
+            print(f"Failed to notify chat {chat_id}: {e}")
 
     try:
         shutil.rmtree("downloads")
         shutil.rmtree("raw_files")
         shutil.rmtree("cache")
-    except:
-        pass
+    except Exception as e:
+        print(f"Failed to remove directories: {e}")
+
     await response.edit_text(
-        "Restart proses started, please wait for a few seconds until the bot starts..."
+        "Restart process started, please wait for a few seconds until the bot starts..."
     )
     os.system(f"kill -9 {os.getpid()} && bash start")
