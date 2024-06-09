@@ -34,9 +34,8 @@ async def start_pm(client, message: Message, _):
         name = message.text.split(None, 1)[1]
         if name[0:4] == "help":
             keyboard = help_pannel(_)
-            return await app.send_message(
-                chat_id=config.LOG_GROUP_ID,
-                text=_["help_1"].format(config.SUPPORT_GROUP),
+            return await message.reply_text(
+                _["help_1"].format(config.SUPPORT_GROUP),
                 reply_markup=keyboard,
             )
         if name[0:3] == "sud":
@@ -104,9 +103,8 @@ async def start_pm(client, message: Message, _):
 async def start_gp(client, message: Message, _):
     out = start_panel(_)
     uptime = int(time.time() - _boot_)
-    await app.send_message(
-        chat_id=config.LOG_GROUP_ID,
-        text=_["start_1"].format(app.mention, get_readable_time(uptime)),
+    await message.reply_text(
+        _["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
     return await add_served_chat(message.chat.id)
