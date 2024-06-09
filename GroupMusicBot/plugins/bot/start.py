@@ -36,7 +36,7 @@ async def start_pm(client, message: Message, _):
             keyboard = help_pannel(_)
             return await app.send_message(
                 chat_id=config.LOG_GROUP_ID,
-                text=caption=_["help_1"].format(config.SUPPORT_GROUP),
+                caption=_["help_1"].format(config.SUPPORT_GROUP),
                 reply_markup=keyboard,
             )
         if name[0:3] == "sud":
@@ -89,7 +89,7 @@ async def start_pm(client, message: Message, _):
         UP, CPU, RAM, DISK = await bot_sys_stats()
         await app.send_message(
             chat_id=config.LOG_GROUP_ID,
-            text=caption=_["start_2"].format(message.from_user.mention, app.mention, UP, DISK, CPU, RAM),
+            caption=_["start_2"].format(message.from_user.mention, app.mention, UP, DISK, CPU, RAM),
             reply_markup=InlineKeyboardMarkup(out),
         )
         if await is_on_off(2):
@@ -106,7 +106,7 @@ async def start_gp(client, message: Message, _):
     uptime = int(time.time() - _boot_)
     await app.send_message(
         chat_id=config.LOG_GROUP_ID,
-        text=caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
+        caption=_["start_1"].format(app.mention, get_readable_time(uptime)),
         reply_markup=InlineKeyboardMarkup(out),
     )
     return await add_served_chat(message.chat.id)
