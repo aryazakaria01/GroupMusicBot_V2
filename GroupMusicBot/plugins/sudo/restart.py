@@ -5,9 +5,10 @@ import shutil
 import socket
 import asyncio
 import urllib3
+from datetime import datetime
 
 from pyrogram import filters
-from datetime import datetime
+from pyrogram.types import Message
 
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
