@@ -12,7 +12,7 @@ from datetime import datetime
 from git import Repo
 from git.exc import GitCommandError, InvalidGitRepositoryError
 
-from GroupMusicBot import app
+from GroupMusicBot import app, LOGGER
 from GroupMusicBot.utils.pastebin import GMBBin
 from GroupMusicBot.misc import HAPP, SUDOERS, XCB
 from GroupMusicBot.utils.database import (
@@ -29,13 +29,20 @@ async def is_heroku():
     return "heroku" in socket.getfqdn()
 
 
-@app.on_message(filters.command(["getlog", "logs", "getlogs"]) & SUDOERS)
-@language
-async def log_(client, message, _):
+@app.on_message(filters.command(["getlog", "logs", "getlogs"]) & filters.user(SUDOERS))
+async def log_(client, message: Message):
     try:
-        await app.send_document(document="MusicLogs.txt")
-    except:
-        await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_1"])
+        await client.send_document(
+            chat_id=message.chat.id,
+            document="MusicLogs.txt",
+            caption="Here are the logs.",
+        )
+    except Exception as e:
+        LOGGER.error(f"Failed to send logs: {e}")
+        await client.send_message(
+            chat_id=message.chat.id,
+            text="Failed to get logs. Please check the server logs for more details.",
+        )
 
 
 @app.on_message(filters.command(["update", "gitpull"]) & SUDOERS)
