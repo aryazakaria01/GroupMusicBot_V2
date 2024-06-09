@@ -139,23 +139,18 @@ async def forceclose_command(_, CallbackQuery):
         return
 
 
-@app.on_edited_message(
-    filters.command("sh")
-    & filters.user(OWNER_ID)
-    & ~filters.forwarded
-    & ~filters.via_bot
-)
 @app.on_message(
-    filters.command("sh")
-    & filters.user(OWNER_ID)
-    & ~filters.forwarded
-    & ~filters.via_bot
+    filters.command("sh") & filters.user(OWNER_ID) & ~filters.forwarded & ~filters.via_bot
 )
-async def shellrunner(_, message: Message):
+@app.on_edited_message(
+    filters.command("sh") & filters.user(OWNER_ID) & ~filters.forwarded & ~filters.via_bot
+)
+async def shellrunner(client, message: Message):
     if len(message.command) < 2:
-        return await message.edit("<b>Example :</b>\n/sh git pull")
+        return await message.reply("<b>Example :</b>\n/sh git pull")
 
     text = message.text.split(None, 1)[1]
+    output_message = await message.reply("Executing...")
 
     if "\n" in text:
         code = text.split("\n")
@@ -173,7 +168,7 @@ async def shellrunner(_, message: Message):
                 output += out.decode("utf-8")
                 output += "\n"
             except Exception as err:
-                return await message.edit(text=f"<b>ERROR :</b>\n<pre>{err}</pre>")
+                return await output_message.edit(text=f"<b>ERROR :</b>\n<pre>{err}</pre>")
     else:
         shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", text)
         for a in range(len(shell)):
@@ -190,7 +185,7 @@ async def shellrunner(_, message: Message):
             print(err)
             exc_type, exc_value, exc_traceback = sys.exc_info()
             errors = traceback.format_exception(exc_type, exc_value, exc_traceback)
-            return await message.edit(text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>")
+            return await output_message.edit(text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>")
 
     if not output.strip():
         output = None
@@ -199,15 +194,17 @@ async def shellrunner(_, message: Message):
         if len(output) > 4096:
             with open("output.txt", "w+") as file:
                 file.write(output)
-            await app.send_document(
+            await client.send_document(
                 message.chat.id,
                 "output.txt",
                 reply_to_message_id=message.message_id,
                 caption="<code>Output</code>",
             )
-            return os.remove("output.txt")
-        await message.edit(text=f"<b>OUTPUT :</b>\n<pre>{output}</pre>")
+            os.remove("output.txt")
+            await output_message.delete()
+        else:
+            await output_message.edit(text=f"<b>OUTPUT :</b>\n<pre>{output}</pre>")
     else:
-        await message.edit(text="<b>OUTPUT :</b>\n<code>None</code>")
+        await output_message.edit(text="<b>OUTPUT :</b>\n<code>None</code>")
 
     await message.stop_propagation()
