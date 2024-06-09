@@ -241,6 +241,7 @@ class Call(PyTgCalls):
         chat_id: int,
         link: str,
         video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         if video:
@@ -290,6 +291,7 @@ class Call(PyTgCalls):
         original_chat_id: int,
         link,
         video: Union[bool, str] = None,
+        image: Union[bool, str] = None,
     ):
         assistant = await group_assistant(self, chat_id)
         language = await get_lang(chat_id)
