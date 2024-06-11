@@ -1,7 +1,7 @@
 import logging
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="[ %(asctime)s: %(levelname)s ] %(name)-15s - %(message)s",
     datefmt="%H:%M:%S",
     handlers=[
