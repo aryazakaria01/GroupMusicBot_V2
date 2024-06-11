@@ -126,7 +126,7 @@ async def welcome(client, message: Message):
                     return await app.leave_chat(message.chat.id)
                 if message.chat.id in await blacklisted_chats():
                     await app.send_message(
-                        chat_id=config.LOG_GROUP_ID,
+                        chat_id=message.chat.id,
                         text=_["start_5"].format(
                             app.mention,
                             f"https://t.me/{app.username}?start=sudolist",
@@ -138,7 +138,7 @@ async def welcome(client, message: Message):
 
                 out = start_panel(_)
                 await app.send_message(
-                    chat_id=config.LOG_GROUP_ID,
+                    chat_id=message.chat.id,
                     text=_["start_3"].format(
                         message.from_user.first_name,
                         app.mention,
