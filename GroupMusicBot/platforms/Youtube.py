@@ -228,7 +228,7 @@ class YouTubeAPI:
 
     async def download(
         self,
-        link: str,
+        linksss: str,
         video: Union[bool, str] = None,
         videoid: Union[bool, str] = None,
         songaudio: Union[bool, str] = None,
@@ -237,7 +237,7 @@ class YouTubeAPI:
         title: Union[bool, str] = None,
     ) -> str:
         if videoid:
-            link = self.base + link
+            link = self.base + linksss
         loop = asyncio.get_running_loop()
 
         def audio_dl():
