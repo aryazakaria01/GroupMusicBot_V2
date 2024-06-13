@@ -147,7 +147,7 @@ async def stream(
             return await app.send_message(original_chat_id, "You can't add more than 10 songs to the queue.")
 
         file_path, direct = await YouTube.download(
-            vidid, mystic, videoid=True, video=status
+            vidid, videoid=True, video=status
         )
         # try:
         #     file_path, direct = await YouTube.download(
