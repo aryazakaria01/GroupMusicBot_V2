@@ -34,7 +34,7 @@ async def stream(
         return
     if forceplay:
         await GMB.force_stop_stream(chat_id)
-    # if streamtype == "playlist":
+    if streamtype == "playlist":
         msg = f"{_['play_19']}\n\n"
         count = 0
         for search in result:
@@ -74,15 +74,12 @@ async def stream(
                 if not forceplay:
                     db[chat_id] = []
                 status = True if video else None
-                file_path, direct = await YouTube.download(
-                    vidid, mystic, video=status, videoid=True
-                )
-                # try:
-                #     file_path, direct = await YouTube.download(
-                #         vidid, mystic, video=status, videoid=True
-                #     )
-                # except:
-                #     raise AssistantErr(_["play_14"])
+                try:
+                    file_path, direct = await YouTube.download(
+                        vidid, video=status, videoid=True
+                    )
+                except:
+                    raise AssistantErr(_["play_14"])
                 await GMB.join_call(
                     chat_id,
                     original_chat_id,
@@ -134,7 +131,7 @@ async def stream(
                 caption=_["play_21"].format(position, link),
                 reply_markup=upl,
             )
-    if streamtype == "youtube":
+    elif streamtype == "youtube":
         link = result["link"]
         vidid = result["vidid"]
         title = (result["title"]).title()
@@ -146,15 +143,12 @@ async def stream(
         if current_queue is not None and len(current_queue) >= 10:
             return await app.send_message(original_chat_id, "You can't add more than 10 songs to the queue.")
 
-        file_path, direct = await YouTube.download(
-            vidid, videoid=True, video=status
-        )
-        # try:
-        #     file_path, direct = await YouTube.download(
-        #         vidid, mystic, videoid=True, video=status
-        #     )
-        # except:
-        #     raise AssistantErr(_["play_14"])
+        try:
+            file_path, direct = await YouTube.download(
+                vidid, videoid=True, video=status
+            )
+        except:
+            raise AssistantErr(_["play_14"])
 
         if await is_active_chat(chat_id):
             await put_queue(
