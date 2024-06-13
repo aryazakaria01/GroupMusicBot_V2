@@ -74,12 +74,15 @@ async def stream(
                 if not forceplay:
                     db[chat_id] = []
                 status = True if video else None
-                try:
-                    file_path, direct = await YouTube.download(
-                        vidid, mystic, video=status, videoid=True
-                    )
-                except:
-                    raise AssistantErr(_["play_14"])
+                file_path, direct = await YouTube.download(
+                    vidid, mystic, video=status, videoid=True
+                )
+                # try:
+                #     file_path, direct = await YouTube.download(
+                #         vidid, mystic, video=status, videoid=True
+                #     )
+                # except:
+                #     raise AssistantErr(_["play_14"])
                 await GMB.join_call(
                     chat_id,
                     original_chat_id,
