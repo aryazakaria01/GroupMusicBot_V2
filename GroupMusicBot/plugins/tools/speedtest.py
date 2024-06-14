@@ -20,8 +20,8 @@ def testspeed(m, strings):
         test.results.share()
         result = test.results.dict()
         m.edit_text(strings["server_14"])
-    except Exception as e:
-        m.edit_text(f"<code>{e}</code>")
+    except AttributeError as e:
+        m.edit_text(f"<code>{e.traceback(e.__with__traceback)}</code>")
         return None
     return result
 
