@@ -21,7 +21,7 @@ def testspeed(m, strings):
         result = test.results.dict()
         m.edit_text(strings["server_14"])
     except AttributeError as e:
-        m.edit_text(f"<code>{e.traceback(e.__with__traceback)}</code>")
+        m.edit_text(f"<code>{e.with_traceback(e.__traceback__)}</code>")
         return None
     return result
 
