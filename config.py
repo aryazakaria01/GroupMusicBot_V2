@@ -43,6 +43,9 @@ STRING5 = getenv("STRING_SESSION5", None)
 
 
 BANNED_USERS = filters.user()
+LOG_FILE_NAME = "MusicLogs.txt"
+YTDOWNLOADER = 1
+LOG = 2
 adminlist = {}
 lyrical = {}
 votemode = {}
