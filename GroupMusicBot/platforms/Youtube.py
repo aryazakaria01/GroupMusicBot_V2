@@ -8,6 +8,7 @@ from pyrogram.types import Message
 from pyrogram.enums import MessageEntityType
 from youtubesearchpython.__future__ import VideosSearch
 
+from pytgcalls.types.raw import VideoParameters
 from GroupMusicBot.utils.database import is_on_off
 from GroupMusicBot.utils.formatters import time_to_seconds
 
@@ -114,7 +115,7 @@ class YouTubeAPI:
             thumbnail = result["thumbnails"][0]["url"].split("?")[0]
         return thumbnail
 
-    async def video(self, link: str, videoid: Union[bool, str] = None):
+    async def video(self, link: str, video_parameters: VideoParameters, videoid: Union[bool, str] = None):
         if videoid:
             link = self.base + link
         if "&" in link:
@@ -123,7 +124,8 @@ class YouTubeAPI:
             "yt-dlp",
             "-g",
             "-f",
-            "best[height<=?720][width<=?1280]",
+            f"best[width<=?{video_parameters.width}]",
+            f"[height<=?{video_parameters.height}]",
             f"{link}",
             stdout=asyncio.subprocess.PIPE,
             stderr=asyncio.subprocess.PIPE,
@@ -229,6 +231,7 @@ class YouTubeAPI:
     async def download(
         self,
         link: str,
+        video_parameters: VideoParameters,
         video: Union[bool, str] = None,
         videoid: Union[bool, str] = None,
         songaudio: Union[bool, str] = None,
@@ -328,7 +331,8 @@ class YouTubeAPI:
                     "yt-dlp",
                     "-g",
                     "-f",
-                    "best[height<=?720][width<=?1280]",
+                    f"best[width<=?{video_parameters.width}]",
+                    f"[height<=?{video_parameters.height}]",
                     f"{link}",
                     stdout=asyncio.subprocess.PIPE,
                     stderr=asyncio.subprocess.PIPE,
