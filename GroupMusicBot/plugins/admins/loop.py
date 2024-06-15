@@ -7,7 +7,7 @@ from GroupMusicBot import app
 from GroupMusicBot.utils.inline import close_markup
 from GroupMusicBot.plugins.tools.queue import get_duration
 from GroupMusicBot.utils.decorators import AdminRightsCheck
-from GroupMusicBot.core.call import stream_call, stop_stream
+from GroupMusicBot.core.call import GMB, stop_stream
 from GroupMusicBot.utils.database import get_loop, set_loop, is_music_playing
 
 @app.on_message(filters.command(["loop", "cloop"]) & filters.group & ~BANNED_USERS)
@@ -56,7 +56,7 @@ async def handle_loop(cli: Client, chat_id: int, loop_count: int):
     for _ in range(loop_count):
         is_playing = await is_music_playing(chat_id)
         if not is_playing:
-            await stream_call(cli, chat_id)
+            await GMB.stream_call(cli, chat_id)
         await asyncio.sleep(await get_duration(chat_id))  # Wait for the current song to finish
         current_loop = await get_loop(chat_id)
         if current_loop <= 0:
