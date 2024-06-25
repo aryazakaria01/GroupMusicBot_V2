@@ -28,3 +28,4 @@ youtube-search
 youtube-search-python
 ntgcalls==1.2.1
 pytz
+pybase64
