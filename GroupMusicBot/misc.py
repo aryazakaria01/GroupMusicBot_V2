@@ -7,7 +7,7 @@ from pyrogram import filters
 from GroupMusicBot.logging import LOGGER
 from GroupMusicBot.core.mongo import mongodb
 
-SUDOERS = set(config.SUDO_USERS)
+SUDOERS = filters.user()
 
 HAPP = None
 _boot_ = time.time()
@@ -42,12 +42,12 @@ def dbb():
 
 async def sudo():
     global SUDOERS
-    SUDOERS.add(config.SUDO_USERS)
+    SUDOERS.add(config.OWNER_ID)
     sudoersdb = mongodb.sudoers
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
     sudoers = [] if not sudoers else sudoers["sudoers"]
-    if config.SUDO_USERS not in sudoers:
-        sudoers.append(config.SUDO_USERS)
+    if config.OWNER_ID not in sudoers:
+        sudoers.append(config.OWNER_ID)
         await sudoersdb.update_one(
             {"sudo": "sudo"},
             {"$set": {"sudoers": sudoers}},
