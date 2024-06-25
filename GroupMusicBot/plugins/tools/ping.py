@@ -15,8 +15,8 @@ from GroupMusicBot.utils.decorators.language import language
 @language
 async def ping_com(client, message: Message, _):
     start = datetime.now()
-    response = await message.reply_photo(
-        photo=PING_IMG_URL,
+    response = await app.send_message(
+        chat_id=message.chat.id
         caption=_["ping_1"].format(app.mention),
     )
     pytgping = await GMB.ping()
