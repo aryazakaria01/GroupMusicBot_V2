@@ -8,11 +8,11 @@ from time import time
 from io import StringIO
 from inspect import getfullargspec
 
-from pyrogram import filters
+from pyrogram import filters, Client
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from GroupMusicBot import app
-from config import OWNER_ID
+from GroupMusicBot.misc import SUDOERS
 
 
 async def aexec(code, client, message):
@@ -30,14 +30,14 @@ async def edit_or_reply(msg: Message, **kwargs):
 
 
 @app.on_edited_message(
-    filters.command("eval")
-    & filters.user(OWNER_ID)
+    filters.command("ev")
+    & SUDOERS
     & ~filters.forwarded
     & ~filters.via_bot
 )
 @app.on_message(
-    filters.command("eval")
-    & filters.user(OWNER_ID)
+    filters.command("ev")
+    & SUDOERS
     & ~filters.forwarded
     & ~filters.via_bot
 )
@@ -71,7 +71,7 @@ async def executor(client: app, message: Message):
         evaluation += stdout
     else:
         evaluation += "Success"
-    final_output = f"<b>⥤ Result :</b>\n<pre language='python'>{evaluation}</pre>"
+    final_output = f"<b>Result :</b>\n<pre language='python'>{evaluation}</pre>"
     if len(final_output) > 4096:
         filename = "output.txt"
         with open(filename, "w+", encoding="utf8") as out_file:
@@ -140,71 +140,70 @@ async def forceclose_command(_, CallbackQuery):
 
 
 @app.on_message(
-    filters.command("sh") & filters.user(OWNER_ID) & ~filters.forwarded & ~filters.via_bot
+    filters.command("bash") 
+    & SUDOERS
+    & ~filters.forwarded 
+    & ~filters.via_bot
+    & ~filters.bot
+    & ~filters.private
 )
 @app.on_edited_message(
-    filters.command("sh") & filters.user(OWNER_ID) & ~filters.forwarded & ~filters.via_bot
+    filters.command("bash") 
+    & SUDOERS
+    & ~filters.forwarded 
+    & ~filters.via_bot
+    & ~filters.bot
+    & ~filters.private
 )
 async def shellrunner(client, message: Message):
     if len(message.command) < 2:
-        return await message.reply("<b>Example :</b>\n/sh git pull")
+        return await message.reply("<b>Example :</b>\n/bash git pull")
 
     text = message.text.split(None, 1)[1]
     output_message = await message.reply("Executing...")
 
-    if "\n" in text:
-        code = text.split("\n")
-        output = ""
-        for x in code:
-            shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", x)
-            try:
-                process = subprocess.Popen(
-                    shell,
-                    stdout=subprocess.PIPE,
-                    stderr=subprocess.PIPE,
-                )
-                out, _ = process.communicate()
+    try:
+        if "\n" in text:
+            code = text.split("\n")
+            output = ""
+            for x in code:
+                shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", x)
+                process = subprocess.Popen(shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+                out, err = process.communicate()
                 output += f"<b>{x}</b>\n"
-                output += out.decode("utf-8")
+                output += out.decode("utf-8") if out else ""
+                output += err.decode("utf-8") if err else ""
                 output += "\n"
-            except Exception as err:
-                return await output_message.edit(text=f"<b>ERROR :</b>\n<pre>{err}</pre>")
-    else:
-        shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", text)
-        for a in range(len(shell)):
-            shell[a] = shell[a].replace('"', "")
-        try:
-            process = subprocess.Popen(
-                shell,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.PIPE,
-            )
-            out, _ = process.communicate()
-            output = out.decode("utf-8")
-        except Exception as err:
-            print(err)
-            exc_type, exc_value, exc_traceback = sys.exc_info()
-            errors = traceback.format_exception(exc_type, exc_value, exc_traceback)
-            return await output_message.edit(text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>")
-
-    if not output.strip():
-        output = None
-
-    if output:
-        if len(output) > 4096:
-            with open("output.txt", "w+") as file:
-                file.write(output)
-            await client.send_document(
-                message.chat.id,
-                "output.txt",
-                reply_to_message_id=message.message_id,
-                caption="<code>Output</code>",
-            )
-            os.remove("output.txt")
-            await output_message.delete()
         else:
-            await output_message.edit(text=f"<b>OUTPUT :</b>\n<pre>{output}</pre>")
-    else:
-        await output_message.edit(text="<b>OUTPUT :</b>\n<code>None</code>")
+            shell = re.split(""" (?=(?:[^'"]|'[^']*'|"[^"]*")*$)""", text)
+            shell = [cmd.replace('"', "") for cmd in shell]
+            process = subprocess.Popen(shell, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+            out, err = process.communicate()
+            output = out.decode("utf-8") if out else ""
+            output += err.decode("utf-8") if err else ""
+
+        if not output.strip():
+            output = "<code>None</code>"
+        else:
+            if len(output) > 4096:
+                with open("output.txt", "w+") as file:
+                    file.write(output)
+                await client.send_document(
+                    message.chat.id,
+                    "output.txt",
+                    reply_to_message_id=message.message_id,
+                    caption="<code>Output</code>",
+                )
+                os.remove("output.txt")
+                await output_message.delete()
+                return
+            else:
+                output = f"<b>OUTPUT :</b>\n<pre>{output}</pre>"
+
+        await output_message.edit(text=output)
+    except Exception as err:
+        exc_type, exc_value, exc_traceback = sys.exc_info()
+        errors = traceback.format_exception(exc_type, exc_value, exc_traceback)
+        await output_message.edit(text=f"<b>ERROR :</b>\n<pre>{''.join(errors)}</pre>")
 
     await message.stop_propagation()
