@@ -15,6 +15,7 @@ heroku()
 
 app = GMB()
 userbot = Userbot()
+MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 
 from .platforms import *
 
