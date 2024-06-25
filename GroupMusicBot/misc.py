@@ -42,7 +42,6 @@ def dbb():
 
 async def sudo():
     global SUDOERS
-    LOGGER(__name__).info("Loading Sudo User Data")
     SUDOERS.add(config.SUDO_USERS)
     sudoersdb = mongodb.sudoers
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
@@ -54,7 +53,9 @@ async def sudo():
             {"$set": {"sudoers": sudoers}},
             upsert=True,
         )
-    SUDOERS = SUDOERS | set(sudoers) if sudoers else SUDOERS
+    if sudoers:
+        for user_id in sudoers:
+            SUDOERS.add(user_id)
     LOGGER(__name__).info(f"Loaded Sudo Users Successfully.")
 
 
