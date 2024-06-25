@@ -1,24 +1,26 @@
 import logging
+import pytz
+from datetime import datetime
+from logging.handlers import RotatingFileHandler
+
+from GroupMusicBot import LOG_FILE_NAME
+
+timezone = pytz.timezone('Asia/Jakarta')
 
 logging.basicConfig(
     level=logging.INFO,
-    format="[ %(asctime)s: %(levelname)s ] %(name)-15s - %(message)s",
-    datefmt="%H:%M:%S",
+    format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
+    datefmt=datetime.now(timezone).strftime("%d - %b - %y | %H:%M:%S"),
     handlers=[
-        logging.FileHandler("MusicLogs.txt"),
+        RotatingFileHandler(LOG_FILE_NAME, maxBytes=50000000, backupCount=10),
         logging.StreamHandler(),
     ],
 )
-logging.getLogger("httpx").setLevel(logging.ERROR)
-logging.getLogger("asyncio").setLevel(logging.CRITICAL)
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logging.getLogger("ntgcalls").setLevel(logging.ERROR)
+logging.getLogger("pyrogram").setLevel(logging.ERROR)
 logging.getLogger("pytgcalls").setLevel(logging.ERROR)
-logging.getLogger("pymongo").setLevel(logging.INFO)
-logging.getLogger("asyncio").setLevel(logging.WARNING)
-logging.getLogger("pyrogram.client").setLevel(logging.WARNING)
-logging.getLogger("pyrogram.syncer").setLevel(logging.CRITICAL)
-logging.getLogger("pyrogram.session.auth").setLevel(logging.CRITICAL)
-logging.getLogger("pyrogram.session.session").setLevel(logging.CRITICAL)
+LOGS = logging.getLogger(__name__)
+
 
 def LOGGER(name: str) -> logging.Logger:
     return logging.getLogger(name)
