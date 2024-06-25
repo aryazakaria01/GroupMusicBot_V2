@@ -3,8 +3,7 @@ import pytz
 from datetime import datetime
 from logging.handlers import RotatingFileHandler
 
-from GroupMusicBot import LOG_FILE_NAME
-
+LOG_FILE_NAME = "MusicLogs.txt"
 timezone = pytz.timezone('Asia/Jakarta')
 
 logging.basicConfig(
