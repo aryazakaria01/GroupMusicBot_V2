@@ -23,7 +23,7 @@ class SoundAPI:
         d = YoutubeDL(self.opts)
         try:
             info = d.extract_info(url)
-        except:
+        except(ValueError, AttributeError):
             return False
         xyz = path.join("downloads", f"{info['id']}.{info['ext']}")
         duration_min = seconds_to_min(info["duration"])

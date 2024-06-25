@@ -1,4 +1,4 @@
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 
 from pyrogram import filters
 from pyrogram.types import Message

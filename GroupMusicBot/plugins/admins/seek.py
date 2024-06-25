@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 
 from GroupMusicBot.misc import db
 from GroupMusicBot import YouTube, app
@@ -64,7 +64,7 @@ async def seek_comm(cli, message: Message, _, chat_id):
             duration,
             playing[0]["streamtype"],
         )
-    except:
+    except(ValueError, AttributeError):
         return await mystic.edit_text(_["admin_26"], reply_markup=close_markup(_))
     if message.command[0][-2] == "c":
         db[chat_id][0]["played"] -= duration_to_skip

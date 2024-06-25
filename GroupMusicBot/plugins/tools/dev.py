@@ -8,7 +8,7 @@ from time import time
 from io import StringIO
 from inspect import getfullargspec
 
-from pyrogram import filters, Client
+from pyrogram import filters
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup, Message
 
 from GroupMusicBot import app
@@ -130,12 +130,12 @@ async def forceclose_command(_, CallbackQuery):
             return await CallbackQuery.answer(
                 "» It'll be better if you stay in your limits.", show_alert=True
             )
-        except:
+        except(ValueError, AttributeError):
             return
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
-    except:
+    except(ValueError, AttributeError):
         return
 
 

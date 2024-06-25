@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pyrogram import filters
 from pyrogram.types import Message
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 
 from GroupMusicBot import app
 from GroupMusicBot.core.call import GMB
@@ -16,8 +16,7 @@ from GroupMusicBot.utils.decorators.language import language
 async def ping_com(client, message: Message, _):
     start = datetime.now()
     response = await app.send_message(
-        chat_id=message.chat.id
-        caption=_["ping_1"].format(app.mention),
+        chat_id=message.chat.id, caption=_["ping_1"].format(app.mention)
     )
     pytgping = await GMB.ping()
     UP, CPU, RAM, DISK = await bot_sys_stats()

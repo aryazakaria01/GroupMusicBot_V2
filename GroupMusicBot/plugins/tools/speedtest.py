@@ -1,4 +1,4 @@
-import config
+import GroupMusicBot.config as config
 import asyncio
 import speedtest
 

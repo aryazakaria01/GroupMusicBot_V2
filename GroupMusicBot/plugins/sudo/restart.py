@@ -1,6 +1,6 @@
 import os
 import sys
-import config
+import GroupMusicBot.config as config
 import shutil
 import socket
 import asyncio
@@ -24,7 +24,18 @@ from GroupMusicBot.utils.database import (
 from GroupMusicBot.utils.decorators.language import language
 
 
-SUDOERS = [645739169, 870471128, 1249591948, 2088106582, 1663258664, 1416529201, 2075788563, 945137470, 2137482758, 5094813212]
+SUDOERS = [
+    645739169,
+    870471128,
+    1249591948,
+    2088106582,
+    1663258664,
+    1416529201,
+    2075788563,
+    945137470,
+    2137482758,
+    5094813212,
+]
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
@@ -54,7 +65,9 @@ async def log_(client, message: Message):
 async def update_(client, message, _):
     if await is_heroku():
         if HAPP is None:
-            return await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_2"])
+            return await app.send_message(
+                chat_id=config.LOG_GROUP_ID, text=_["server_2"]
+            )
     response = await app.send_message(chat_id=config.LOG_GROUP_ID, text=_["server_3"])
     try:
         repo = Repo()
@@ -72,10 +85,13 @@ async def update_(client, message, _):
     if verification == "":
         return await response.edit(_["server_6"])
     updates = ""
-    ordinal = lambda format: "%d%s" % (
-        format,
-        "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
-    )
+
+    def ordinal(format):
+        return "%d%s" % (
+            format,
+            "tsnrhtdd"[(format // 10 % 10 != 1) * (format % 10 < 4) * format % 10 :: 4],
+        )
+
     for info in repo.iter_commits(f"HEAD..origin/{config.UPSTREAM_BRANCH}"):
         updates += f"<b>#{info.count()}: <a href={REPO_}/commit/{info}>{info.summary}</a> By: {info.author}</b>\n\t\t\t\t<b>Commited on:</b> {ordinal(int(datetime.fromtimestamp(info.committed_date).strftime('%d')))} {datetime.fromtimestamp(info.committed_date).strftime('%b')}, {datetime.fromtimestamp(info.committed_date).strftime('%Y')}\n\n"
     _update_response_ = "<b>A new update is available for this bot!</b>\n\nPushing the updates right now\n\n<b><u>Updates:</u></b>\n\n"
@@ -99,10 +115,10 @@ async def update_(client, message, _):
                 )
                 await remove_active_chat(x)
                 await remove_active_video_chat(x)
-            except:
+            except (ValueError, AttributeError):
                 pass
         await response.edit(f"{nrs.text}\n\n{_['server_7']}")
-    except:
+    except (ValueError, AttributeError):
         pass
 
     if await is_heroku():
@@ -126,7 +142,7 @@ async def update_(client, message, _):
 @app.on_message(filters.command("restart") & filters.user(SUDOERS))
 async def restart_(client, message: Message):
     response = await message.reply_text("Restarting the bots...")
-    
+
     ac_chats = await get_active_chats()
     for chat_id in ac_chats:
         try:

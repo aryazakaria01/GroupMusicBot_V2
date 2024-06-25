@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton, InlineKeyboardMarkup
 
-from config import SUPPORT_GROUP
+from GroupMusicBot.config import SUPPORT_GROUP
 
 
 def botplaylist_markup(_):

@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.enums import ParseMode
 
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 from GroupMusicBot import YouTube, app
 from GroupMusicBot.utils.stream.stream import stream
 from GroupMusicBot.utils.channelplay import get_channeplayCB
@@ -17,25 +17,25 @@ async def play_live_stream(client, CallbackQuery, _):
     if CallbackQuery.from_user.id != int(user_id):
         try:
             return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
-        except:
+        except(ValueError, AttributeError):
             return
     try:
         chat_id, channel = await get_channeplayCB(_, cplay, CallbackQuery)
-    except:
+    except(ValueError, AttributeError):
         return
     video = True if mode == "v" else None
     user_name = CallbackQuery.from_user.first_name
     await CallbackQuery.message.delete()
     try:
         await CallbackQuery.answer()
-    except:
+    except(ValueError, AttributeError):
         pass
     mystic = await CallbackQuery.message.reply_text(
         _["play_2"].format(channel) if channel else _["play_1"]
     )
     try:
         details, track_id = await YouTube.track(vidid, True)
-    except:
+    except(ValueError, AttributeError):
         return await mystic.edit_text(_["play_3"])
     ffplay = True if fplay == "f" else None
     if not details["duration_min"]:

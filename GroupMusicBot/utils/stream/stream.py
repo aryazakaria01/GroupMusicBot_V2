@@ -1,5 +1,5 @@
 import os
-import config
+import GroupMusicBot.config as config
 
 from typing import Union
 from random import randint
@@ -48,7 +48,7 @@ async def stream(
                     thumbnail,
                     vidid,
                 ) = await YouTube.details(search, False if spotify else True)
-            except:
+            except(ValueError, AttributeError):
                 continue
             if str(duration_min) == "None":
                 continue
@@ -78,7 +78,7 @@ async def stream(
                     file_path, direct = await YouTube.download(
                         vidid, video=status, videoid=True
                     )
-                except:
+                except(ValueError, AttributeError):
                     raise AssistantErr(_["play_14"])
                 await GMB.join_call(
                     chat_id,
@@ -147,7 +147,7 @@ async def stream(
             file_path, direct = await YouTube.download(
                 vidid, videoid=True, video=status
             )
-        except:
+        except(ValueError, AttributeError):
             raise AssistantErr(_["play_14"])
 
         if await is_active_chat(chat_id):

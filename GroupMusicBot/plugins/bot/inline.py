@@ -1,4 +1,4 @@
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 from youtubesearchpython.__future__ import VideosSearch
 
 from pyrogram.types import (
@@ -18,7 +18,7 @@ async def inline_query_handler(client, query):
     if text.strip() == "":
         try:
             await client.answer_inline_query(query.id, results=answer, cache_time=10)
-        except:
+        except(ValueError, AttributeError):
             return
     else:
         a = VideosSearch(text, limit=20)
@@ -65,5 +65,5 @@ async def inline_query_handler(client, query):
             )
         try:
             return await client.answer_inline_query(query.id, results=answers)
-        except:
+        except(ValueError, AttributeError):
             return

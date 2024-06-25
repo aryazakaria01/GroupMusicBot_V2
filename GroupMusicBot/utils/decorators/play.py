@@ -1,7 +1,7 @@
 import asyncio
 
 from strings import get_string
-from config import PLAYLIST_IMG_URL, SUPPORT_GROUP, adminlist
+from GroupMusicBot.config import PLAYLIST_IMG_URL, SUPPORT_GROUP, adminlist
 
 from pyrogram.enums import ChatMemberStatus
 from pyrogram.errors import (
@@ -54,7 +54,7 @@ def PlayWrapper(command):
 
         try:
             await message.delete()
-        except:
+        except(ValueError, AttributeError):
             pass
 
         audio_telegram = (
@@ -84,7 +84,7 @@ def PlayWrapper(command):
                 return await message.reply_text(_["setting_7"])
             try:
                 chat = await app.get_chat(chat_id)
-            except:
+            except(ValueError, AttributeError):
                 return await message.reply_text(_["cplay_4"])
             channel = chat.title
         else:
@@ -138,7 +138,7 @@ def PlayWrapper(command):
                         invitelink = message.chat.username
                         try:
                             await userbot.resolve_peer(invitelink)
-                        except:
+                        except(ValueError, AttributeError):
                             pass
                     else:
                         try:
@@ -178,7 +178,7 @@ def PlayWrapper(command):
 
                 try:
                     await userbot.resolve_peer(chat_id)
-                except:
+                except(ValueError, AttributeError):
                     pass
 
         return await command(

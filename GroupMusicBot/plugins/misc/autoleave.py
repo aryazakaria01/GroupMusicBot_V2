@@ -1,4 +1,4 @@
-import config
+import GroupMusicBot.config as config
 import asyncio
 
 from datetime import datetime
@@ -35,9 +35,9 @@ async def auto_leave():
                                     try:
                                         await client.leave_chat(i.chat.id)
                                         left += 1
-                                    except:
+                                    except(ValueError, AttributeError):
                                         continue
-                except:
+                except(ValueError, AttributeError):
                     pass
 
 
@@ -60,14 +60,14 @@ async def auto_end():
                 autoend[chat_id] = {}
                 try:
                     await GMB.stop_stream(chat_id)
-                except:
+                except(ValueError, AttributeError):
                     continue
                 try:
                     await app.send_message(
                         chat_id,
                         "Bot automatically left video chat because no one was listening on video chat.",
                     )
-                except:
+                except(ValueError, AttributeError):
                     continue
 
 

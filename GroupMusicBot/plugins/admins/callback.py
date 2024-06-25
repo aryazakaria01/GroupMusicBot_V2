@@ -1,4 +1,4 @@
-import config
+import GroupMusicBot.config as config
 import asyncio
 from strings import get_string
 
@@ -24,7 +24,7 @@ from GroupMusicBot.utils.formatters import seconds_to_min
 from GroupMusicBot.utils.stream.autoclear import auto_clean
 from GroupMusicBot.utils.decorators.language import languageCB
 from GroupMusicBot.utils.inline import close_markup, stream_markup, stream_markup_timer
-from config import (
+from GroupMusicBot.config import (
     BANNED_USERS,
     SOUNDCLOUD_IMG_URL,
     STREAM_IMG_URL,
@@ -84,18 +84,18 @@ async def del_back_playlist(client, CallbackQuery, _):
             try:
                 exists = confirmer[chat_id][CallbackQuery.message.id]
                 current = db[chat_id][0]
-            except:
-                return await CallbackQuery.edit_message_text(f"ғᴀɪʟᴇᴅ.")
+            except(ValueError, AttributeError):
+                return await CallbackQuery.edit_message_text("ғᴀɪʟᴇᴅ.")
             try:
                 if current["vidid"] != exists["vidid"]:
                     return await CallbackQuery.edit_message.text(_["admin_35"])
                 if current["file"] != exists["file"]:
                     return await CallbackQuery.edit_message.text(_["admin_35"])
-            except:
+            except(ValueError, AttributeError):
                 return await CallbackQuery.edit_message_text(_["admin_36"])
             try:
                 await CallbackQuery.edit_message_text(_["admin_37"].format(upvote))
-            except:
+            except(ValueError, AttributeError):
                 pass
             command = counter
             mention = "Upvotes"
@@ -178,9 +178,9 @@ async def del_back_playlist(client, CallbackQuery, _):
                     )
                     try:
                         return await GMB.stop_stream(chat_id)
-                    except:
+                    except(ValueError, AttributeError):
                         return
-            except:
+            except(ValueError, AttributeError):
                 try:
                     await CallbackQuery.edit_message_text(
                         f"Stream Skipped\n│ \n└By : {mention}"
@@ -192,7 +192,7 @@ async def del_back_playlist(client, CallbackQuery, _):
                         reply_markup=close_markup(_),
                     )
                     return await GMB.stop_stream(chat_id)
-                except:
+                except(ValueError, AttributeError):
                     return
         else:
             txt = f"Stream Re-Played\n│ \n└By : {mention}"
@@ -220,11 +220,11 @@ async def del_back_playlist(client, CallbackQuery, _):
                 )
             try:
                 image = await YouTube.thumbnail(videoid, True)
-            except:
+            except(ValueError, AttributeError):
                 image = None
             try:
                 await GMB.skip_stream(chat_id, link, video=status, image=image)
-            except:
+            except(ValueError, AttributeError):
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
             img = await gen_thumb(videoid)
@@ -252,15 +252,15 @@ async def del_back_playlist(client, CallbackQuery, _):
                     videoid=True,
                     video=status,
                 )
-            except:
+            except(ValueError, AttributeError):
                 return await mystic.edit_text(_["call_6"])
             try:
                 image = await YouTube.thumbnail(videoid, True)
-            except:
+            except(ValueError, AttributeError):
                 image = None
             try:
                 await GMB.skip_stream(chat_id, file_path, video=status, image=image)
-            except:
+            except(ValueError, AttributeError):
                 return await mystic.edit_text(_["call_6"])
             button = stream_markup(_, chat_id)
             img = await gen_thumb(videoid)
@@ -281,7 +281,7 @@ async def del_back_playlist(client, CallbackQuery, _):
         elif "index_" in queued:
             try:
                 await GMB.skip_stream(chat_id, videoid, video=status)
-            except:
+            except(ValueError, AttributeError):
                 return await CallbackQuery.message.reply_text(_["call_6"])
             button = stream_markup(_, chat_id)
             run = await CallbackQuery.message.reply_photo(
@@ -300,11 +300,11 @@ async def del_back_playlist(client, CallbackQuery, _):
             else:
                 try:
                     image = await YouTube.thumbnail(videoid, True)
-                except:
+                except(ValueError, AttributeError):
                     image = None
             try:
                 await GMB.skip_stream(chat_id, queued, video=status, image=image)
-            except:
+            except(ValueError, AttributeError):
                 return await CallbackQuery.message.reply_text(_["call_6"])
             if videoid == "telegram":
                 button = stream_markup(_, chat_id)
@@ -365,18 +365,18 @@ async def markup_timer():
                     continue
                 try:
                     mystic = playing[0]["mystic"]
-                except:
+                except(ValueError, AttributeError):
                     continue
                 try:
                     check = checker[chat_id][mystic.id]
                     if check is False:
                         continue
-                except:
+                except(ValueError, AttributeError):
                     pass
                 try:
                     language = await get_lang(chat_id)
                     _ = get_string(language)
-                except:
+                except(ValueError, AttributeError):
                     _ = get_string("en")
                 try:
                     buttons = stream_markup_timer(
@@ -388,9 +388,9 @@ async def markup_timer():
                     await mystic.edit_reply_markup(
                         reply_markup=InlineKeyboardMarkup(buttons)
                     )
-                except:
+                except(ValueError, AttributeError):
                     continue
-            except:
+            except(ValueError, AttributeError):
                 continue
 
 

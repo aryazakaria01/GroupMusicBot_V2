@@ -1,7 +1,7 @@
 import time
 import socket
 import heroku3
-import config
+import GroupMusicBot.config as config
 
 from pyrogram import filters
 from GroupMusicBot.logging import LOGGER
@@ -37,7 +37,7 @@ XCB = [
 def dbb():
     global db
     db = {}
-    LOGGER(__name__).info(f"Local database initialized...")
+    LOGGER(__name__).info("Local database initialized...")
 
 
 async def sudo():
@@ -56,7 +56,7 @@ async def sudo():
     if sudoers:
         for user_id in sudoers:
             SUDOERS.add(user_id)
-    LOGGER(__name__).info(f"Loaded Sudo Users Successfully.")
+    LOGGER(__name__).info("Loaded Sudo Users Successfully.")
 
 
 def heroku():
@@ -66,8 +66,8 @@ def heroku():
             try:
                 Heroku = heroku3.from_key(config.HEROKU_API_KEY)
                 HAPP = Heroku.app(config.HEROKU_APP_NAME)
-                LOGGER(__name__).info(f"Heroku app configured")
+                LOGGER(__name__).info("Heroku app configured")
             except BaseException:
                 LOGGER(__name__).warning(
-                    f"Please make sure your HEROKU_API_KEY and HEROKU_APP_NAME are configured correctly in the heroku."
+                    "Please make sure your HEROKU_API_KEY and HEROKU_APP_NAME are configured correctly in the heroku."
                 )

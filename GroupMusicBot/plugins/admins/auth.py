@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from config import BANNED_USERS, adminlist
+from GroupMusicBot.config import BANNED_USERS, adminlist
 
 from GroupMusicBot import app
 from GroupMusicBot.utils.inline import close_markup
@@ -82,7 +82,7 @@ async def authusers(client, message: Message, _):
             try:
                 user = (await app.get_users(user_id)).first_name
                 j += 1
-            except:
+            except(ValueError, AttributeError):
                 continue
             text += f"{j} {user} [<code>{user_id}</code>]\n"
             text += f"   {_['auth_8']} {admin_name} [<code>{admin_id}</code>]\n\n"

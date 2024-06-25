@@ -1,6 +1,6 @@
 from typing import Union
 from strings import get_string, helpers
-from config import BANNED_USERS, START_IMG_URL, SUPPORT_GROUP
+from GroupMusicBot.config import BANNED_USERS, START_IMG_URL, SUPPORT_GROUP
 
 from pyrogram import filters, types
 from pyrogram.types import InlineKeyboardMarkup, Message
@@ -21,7 +21,7 @@ async def helper_private(
     if is_callback:
         try:
             await update.answer()
-        except:
+        except(ValueError, AttributeError):
             pass
         chat_id = update.message.chat.id
         language = await get_lang(chat_id)
@@ -33,7 +33,7 @@ async def helper_private(
     else:
         try:
             await update.delete()
-        except:
+        except(ValueError, AttributeError):
             pass
         language = await get_lang(update.chat.id)
         _ = get_string(language)

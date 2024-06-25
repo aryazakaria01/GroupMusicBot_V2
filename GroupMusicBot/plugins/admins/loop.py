@@ -1,7 +1,7 @@
 from pyrogram import filters
 from pyrogram.types import Message
 
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 
 from GroupMusicBot import app
 from GroupMusicBot.utils.inline import close_markup

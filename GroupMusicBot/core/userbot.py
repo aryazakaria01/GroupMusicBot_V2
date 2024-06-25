@@ -1,5 +1,5 @@
 import sys
-import config
+import GroupMusicBot.config as config
 
 from pyrogram import Client
 from GroupMusicBot.logging import LOGGER
@@ -58,12 +58,12 @@ class Userbot(Client):
             try:
                 await self.one.join_chat("SakuraEmpireTeam")
                 await self.one.join_chat("FumikaSupportGroup")
-            except:
+            except ValueError:
                 pass
             assistants.append(1)
             try:
                 await self.one.send_message(config.LOG_GROUP_ID, "Assistant 1 started")
-            except:
+            except ValueError:
                 LOGGER(__name__).error(
                     "Assistant Account 1 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
                 )
@@ -79,12 +79,12 @@ class Userbot(Client):
             try:
                 await self.two.join_chat("SakuraEmpireTeam")
                 await self.one.join_chat("FumikaSupportGroup")
-            except:
+            except ValueError:
                 pass
             assistants.append(2)
             try:
                 await self.two.send_message(config.LOG_GROUP_ID, "Assistant 2 started")
-            except:
+            except ValueError:
                 LOGGER(__name__).error(
                     "Assistant Account 2 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin!"
                 )
@@ -100,12 +100,12 @@ class Userbot(Client):
             try:
                 await self.three.join_chat("SakuraEmpireTeam")
                 await self.one.join_chat("FumikaSupportGroup")
-            except:
+            except(ValueError, AttributeError):
                 pass
             assistants.append(3)
             try:
                 await self.three.send_message(config.LOG_GROUP_ID, "Assistant 3 started")
-            except:
+            except(ValueError, AttributeError):
                 LOGGER(__name__).error(
                     "Assistant Account 3 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
@@ -121,12 +121,12 @@ class Userbot(Client):
             try:
                 await self.four.join_chat("SakuraEmpireTeam")
                 await self.one.join_chat("FumikaSupportGroup")
-            except:
+            except(ValueError, AttributeError):
                 pass
             assistants.append(4)
             try:
                 await self.four.send_message(config.LOG_GROUP_ID, "Assistant 4 started")
-            except:
+            except(ValueError, AttributeError):
                 LOGGER(__name__).error(
                     "Assistant Account 4 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
@@ -142,12 +142,12 @@ class Userbot(Client):
             try:
                 await self.five.join_chat("SakuraEmpireTeam")
                 await self.one.join_chat("FumikaSupportGroup")
-            except:
+            except(ValueError, AttributeError):
                 pass
             assistants.append(5)
             try:
                 await self.five.send_message(config.LOG_GROUP_ID, "Assistant 5 started")
-            except:
+            except(ValueError, AttributeError):
                 LOGGER(__name__).error(
                     "Assistant Account 5 has failed to access the log Group. Make sure that you have added your assistant to your log group and promoted as admin! "
                 )
@@ -171,5 +171,5 @@ class Userbot(Client):
                 await self.four.stop()
             if config.STRING5:
                 await self.five.stop()
-        except:
+        except(ValueError, AttributeError):
             pass

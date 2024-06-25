@@ -1,7 +1,7 @@
 from pyrogram.enums import ParseMode
 
 from GroupMusicBot import app
-from config import LOG_GROUP_ID
+from GroupMusicBot.config import LOG_GROUP_ID
 from GroupMusicBot.utils.database import is_on_off
 
 
@@ -28,6 +28,6 @@ async def play_logs(message, streamtype):
                     parse_mode=ParseMode.HTML,
                     disable_web_page_preview=True,
                 )
-            except:
+            except(ValueError, AttributeError):
                 pass
         return

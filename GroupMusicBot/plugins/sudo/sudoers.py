@@ -1,6 +1,6 @@
 from pyrogram import filters
 from pyrogram.types import Message
-from config import BANNED_USERS, OWNER_ID
+from GroupMusicBot.config import BANNED_USERS, OWNER_ID
 
 from GroupMusicBot import app
 from GroupMusicBot.misc import SUDOERS
@@ -62,7 +62,7 @@ async def sudoers_list(client, message: Message, _):
                     text += _["sudo_6"]
                 count += 1
                 text += f"{count} {user}\n"
-            except:
+            except(ValueError, AttributeError):
                 continue
     if not text:
         await message.reply_text(_["sudo_7"])

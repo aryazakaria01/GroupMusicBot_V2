@@ -1,5 +1,5 @@
 import asyncio
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 
 from pyrogram import filters
 from pyrogram.types import Message
@@ -50,7 +50,7 @@ async def global_ban(client, message: Message, _):
             number_of_chats += 1
         except FloodWait as fw:
             await asyncio.sleep(int(fw.value))
-        except:
+        except(ValueError, AttributeError):
             continue
     await add_banned_user(user.id)
     await message.reply_text(
@@ -92,7 +92,7 @@ async def global_un(client, message: Message, _):
             number_of_chats += 1
         except FloodWait as fw:
             await asyncio.sleep(int(fw.value))
-        except:
+        except(ValueError, AttributeError):
             continue
     await remove_banned_user(user.id)
     await message.reply_text(_["gban_9"].format(user.mention, number_of_chats))

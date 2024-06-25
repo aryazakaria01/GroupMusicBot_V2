@@ -1,8 +1,8 @@
 import time
-import config
+import GroupMusicBot.config as config
 
 from strings import get_string
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 from youtubesearchpython.__future__ import VideosSearch
 
 from pyrogram import filters
@@ -118,7 +118,7 @@ async def welcome(client, message: Message):
             if await is_banned_user(member.id):
                 try:
                     await message.chat.ban_member(member.id)
-                except:
+                except(ValueError, AttributeError):
                     pass
             if member.id == app.id:
                 if message.chat.type != ChatType.SUPERGROUP:

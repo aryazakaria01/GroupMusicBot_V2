@@ -1,12 +1,12 @@
 import sys
-import config
+import GroupMusicBot.config as config
 import asyncio
 import importlib
 
 from pyrogram import idle
 from pytgcalls.exceptions import NoActiveGroupCall
 
-from config import BANNED_USERS
+from GroupMusicBot.config import BANNED_USERS
 from GroupMusicBot.misc import sudo
 from GroupMusicBot.core.call import GMB
 from GroupMusicBot.plugins import ALL_MODULES
@@ -32,7 +32,7 @@ async def init():
         users = await get_banned_users()
         for user_id in users:
             BANNED_USERS.add(user_id)
-    except:
+    except BaseException:
         pass
     await app.start()
     for all_module in ALL_MODULES:
@@ -47,7 +47,7 @@ async def init():
             "Please turn on the video chat of your logs group\channel.\n\nShuting down the bot system..."
         )
         sys.exit()
-    except:
+    except(ValueError, AttributeError):
         pass
     await GMB.decorators()
     LOGGER("GroupMusicBot").info(

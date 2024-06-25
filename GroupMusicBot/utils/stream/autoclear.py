@@ -1,6 +1,6 @@
 import os
 
-from config import autoclean
+from GroupMusicBot.config import autoclean
 
 
 async def auto_clean(popped):
@@ -12,7 +12,7 @@ async def auto_clean(popped):
             if "vid_" not in rem or "live_" not in rem or "index_" not in rem:
                 try:
                     os.remove(rem)
-                except:
+                except(ValueError, AttributeError):
                     pass
-    except:
+    except(ValueError, AttributeError):
         pass

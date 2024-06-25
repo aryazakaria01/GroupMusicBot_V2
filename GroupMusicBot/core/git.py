@@ -1,5 +1,5 @@
 import shlex
-import config
+import GroupMusicBot.config as config
 import asyncio
 from typing import Tuple
 

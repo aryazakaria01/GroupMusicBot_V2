@@ -1,6 +1,5 @@
-from os import getenv
 from pyrogram import Client
-from config import API_ID, API_HASH, BOT_TOKEN
+from GroupMusicBot.config import API_ID, API_HASH, BOT_TOKEN
 
 from GroupMusicBot.core.bot import GMB
 from GroupMusicBot.core.git import git
@@ -16,7 +15,7 @@ heroku()
 
 app = GMB()
 userbot = Userbot()
-MONGO_DB_URI = getenv("MONGO_DB_URI", None)
+
 
 from .platforms import *
 
