@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pyrogram import filters
 from pyrogram.types import Message
-from config import BANNED_USERS, PING_IMG_URL
+from config import BANNED_USERS
 
 from GroupMusicBot import app
 from GroupMusicBot.core.call import GMB
