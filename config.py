@@ -5,6 +5,8 @@ from pyrogram import filters
 from base64 import b64decode
 from dotenv import load_dotenv
 
+from GroupMusicBot.utils.formatters import time_to_seconds
+
 load_dotenv()
 
 API_ID = int(getenv("API_ID"))
