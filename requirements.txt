@@ -14,7 +14,7 @@ pillow
 psutil
 py-tgcalls==2.0.2
 pykeyboard
-pyrofork==2.3.25
+pyroblack==2.3.84
 python-dotenv
 pyyaml
 requests
@@ -27,3 +27,4 @@ yt-dlp
 youtube-search
 youtube-search-python
 ntgcalls==1.2.1
+pytz
