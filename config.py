@@ -7,23 +7,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-if not BLACKLIST_CHAT:
-    BLACKLIST_CHAT = [
-        -1001662591986,
-        -1001591431784,
-        -1001772837601,
-        -1001736027940,
-        -1001578091827,
-        -1002227190877,
-        -1001339411100,
-    ]
-
 API_ID = int(getenv("API_ID"))
 API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 60))
-BLACKLIST_CHAT = getenv("BLACKLIST_CHAT", None)
 BLACKLIST_GCAST = {int(x) for x in getenv("BLACKLIST_GCAST", "").split()}
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 SUDO_USERS = list(map(int, getenv("SUDO_USERS", "").split()))
