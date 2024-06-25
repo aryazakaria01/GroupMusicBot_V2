@@ -12,6 +12,7 @@ git()
 dbb()
 dirr()
 heroku()
+LOG_FILE_NAME = "logs.txt"
 
 app = GMB()
 userbot = Userbot()
