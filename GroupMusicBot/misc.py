@@ -1,13 +1,13 @@
 import time
 import socket
 import heroku3
+import config
 
 from pyrogram import filters
-from config import SUDO_USERS
 from GroupMusicBot.logging import LOGGER
 from GroupMusicBot.core.mongo import mongodb
 
-SUDOERS = set(SUDO_USERS)
+SUDOERS = set(config.SUDO_USERS)
 
 HAPP = None
 _boot_ = time.time()
@@ -43,12 +43,12 @@ def dbb():
 async def sudo():
     global SUDOERS
     LOGGER(__name__).info("Loading Sudo User Data")
-    SUDOERS.add(SUDO_USERS)
+    SUDOERS.add(config.SUDO_USERS)
     sudoersdb = mongodb.sudoers
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
     sudoers = [] if not sudoers else sudoers["sudoers"]
-    if SUDO_USERS not in sudoers:
-        sudoers.append(SUDO_USERS)
+    if config.SUDO_USERS not in sudoers:
+        sudoers.append(config.SUDO_USERS)
         await sudoersdb.update_one(
             {"sudo": "sudo"},
             {"$set": {"sudoers": sudoers}},
