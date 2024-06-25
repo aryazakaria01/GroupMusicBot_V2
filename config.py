@@ -23,6 +23,7 @@ API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 MONGO_DB_URI = getenv("MONGO_DB_URI", None)
 DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 60))
+BLACKLIST_CHAT = getenv("BLACKLIST_CHAT", None)
 BLACKLIST_GCAST = {int(x) for x in getenv("BLACKLIST_GCAST", "").split()}
 DURATION_LIMIT = int(time_to_seconds(f"{DURATION_LIMIT_MIN}:00"))
 SUDO_USERS = list(map(int, getenv("SUDO_USERS", "").split()))
@@ -70,7 +71,6 @@ STRING2 = getenv("STRING_SESSION2", None)
 STRING3 = getenv("STRING_SESSION3", None)
 STRING4 = getenv("STRING_SESSION4", None)
 STRING5 = getenv("STRING_SESSION5", None)
-BLACKLIST_CHAT = getenv("BLACKLIST_CHAT", None)
 
 BANNED_USERS = filters.user()
 YTDOWNLOADER = 1
