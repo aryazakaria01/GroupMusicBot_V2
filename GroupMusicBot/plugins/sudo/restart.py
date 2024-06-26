@@ -1,6 +1,6 @@
 import os
 import sys
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import shutil
 import socket
 import asyncio

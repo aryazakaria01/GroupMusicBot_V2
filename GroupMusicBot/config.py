@@ -21,8 +21,7 @@ OWNER_ID = list(map(int, getenv("OWNER_ID", "").split()))
 HEROKU_APP_NAME = getenv("HEROKU_APP_NAME")
 HEROKU_API_KEY = getenv("HEROKU_API_KEY")
 COMMAND_PREFIXES = list(getenv("COMMAND_PREFIXES", "/ ! . ~ - _ = > < ) * :").split())
-MONGO_DB_URI = getenv("MONGO_DB_URI", None)
-
+MONGO_DB_URI = getenv("MONGO_DB_URI")
 UPSTREAM_REPO = getenv(
     "UPSTREAM_REPO",
     b64decode(

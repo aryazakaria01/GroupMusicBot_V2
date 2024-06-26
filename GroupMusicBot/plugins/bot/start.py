@@ -1,5 +1,5 @@
 import time
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 
 from strings import get_string
 from GroupMusicBot.config import BANNED_USERS

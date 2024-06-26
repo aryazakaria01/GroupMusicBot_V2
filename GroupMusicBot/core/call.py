@@ -1,5 +1,5 @@
 import os
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import asyncio
 
 from typing import Union
@@ -15,7 +15,14 @@ from pytgcalls.exceptions import (
     AlreadyJoinedError,
     NoActiveGroupCall,
 )
-from pytgcalls.types import Update, MediaStream, AudioQuality, VideoQuality, StreamAudioEnded, ChatUpdate
+from pytgcalls.types import (
+    Update,
+    MediaStream,
+    AudioQuality,
+    VideoQuality,
+    StreamAudioEnded,
+    ChatUpdate,
+)
 
 from GroupMusicBot.misc import db
 from GroupMusicBot import LOGGER, YouTube, app
@@ -35,7 +42,11 @@ from GroupMusicBot.utils.database import (
 from GroupMusicBot.utils.exceptions import AssistantErr
 from GroupMusicBot.utils.inline.play import stream_markup
 from GroupMusicBot.utils.stream.autoclear import auto_clean
-from GroupMusicBot.utils.formatters import check_duration, seconds_to_min, speed_converter
+from GroupMusicBot.utils.formatters import (
+    check_duration,
+    seconds_to_min,
+    speed_converter,
+)
 
 autoend = {}
 counter = {}
@@ -467,7 +478,9 @@ class Call(PyTgCalls):
                         VideoQuality.FHD_1080p,
                     )
                     if str(streamtype) == "video"
-                    else MediaStream(videoid, AudioQuality.STUDIO, VideoQuality.FHD_1080p)
+                    else MediaStream(
+                        videoid, AudioQuality.STUDIO, VideoQuality.FHD_1080p
+                    )
                 )
                 try:
                     await client.play(chat_id, stream)
@@ -509,9 +522,11 @@ class Call(PyTgCalls):
                     button = stream_markup(_, chat_id)
                     run = await app.send_photo(
                         chat_id=original_chat_id,
-                        photo=config.TELEGRAM_AUDIO_URL
-                        if str(streamtype) == "audio"
-                        else config.TELEGRAM_VIDEO_URL,
+                        photo=(
+                            config.TELEGRAM_AUDIO_URL
+                            if str(streamtype) == "audio"
+                            else config.TELEGRAM_VIDEO_URL
+                        ),
                         caption=_["stream_1"].format(
                             config.SUPPORT_GROUP, title[:23], check[0]["dur"], user
                         ),

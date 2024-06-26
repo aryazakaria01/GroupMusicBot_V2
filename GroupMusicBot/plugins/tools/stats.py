@@ -1,5 +1,5 @@
 import psutil
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import platform
 
 from GroupMusicBot.config import BANNED_USERS

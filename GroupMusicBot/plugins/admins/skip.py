@@ -1,4 +1,4 @@
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 from GroupMusicBot.config import BANNED_USERS
 
 from pyrogram import filters

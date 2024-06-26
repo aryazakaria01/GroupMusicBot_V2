@@ -1,5 +1,5 @@
 import sys
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 
 from pyrogram import Client
 from GroupMusicBot.logging import LOGGER

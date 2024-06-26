@@ -1,6 +1,6 @@
 import random
 import string
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 from GroupMusicBot.config import BANNED_USERS, lyrical
 
 from pyrogram import filters

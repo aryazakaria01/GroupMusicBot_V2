@@ -1,6 +1,6 @@
 import os
 import time
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import asyncio
 
 from typing import Union
@@ -40,13 +40,6 @@ class TeleAPI:
         except(ValueError, AttributeError):
             file_name = "Telegram Audio" if audio else "Telegram Video"
         return file_name
-
-    async def get_duration(self, file):
-        try:
-            dur = seconds_to_min(file.duration)
-        except(ValueError, AttributeError):
-            dur = "Unknown"
-        return dur
 
     async def get_duration(self, filex, file_path):
         try:

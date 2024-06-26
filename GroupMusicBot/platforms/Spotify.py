@@ -1,5 +1,5 @@
 import re
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import spotipy
 
 from spotipy.oauth2 import SpotifyClientCredentials

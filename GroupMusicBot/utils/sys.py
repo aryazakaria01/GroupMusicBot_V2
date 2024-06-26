@@ -1,10 +1,9 @@
 import time
 import psutil
 
-from GroupMusicBot.misc import _boot_
 from GroupMusicBot.utils.formatters import get_readable_time
 
-
+_boot_ = time.time()
 async def bot_sys_stats():
     bot_uptime = int(time.time() - _boot_)
     UP = f"{get_readable_time(bot_uptime)}"

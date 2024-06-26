@@ -1,4 +1,4 @@
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import asyncio
 from strings import get_string
 

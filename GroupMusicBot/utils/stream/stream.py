@@ -1,5 +1,5 @@
 import os
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 
 from typing import Union
 from random import randint

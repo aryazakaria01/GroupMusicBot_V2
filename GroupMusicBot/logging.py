@@ -7,7 +7,7 @@ LOG_FILE_NAME = "MusicLogs.txt"
 timezone = pytz.timezone('Asia/Jakarta')
 
 logging.basicConfig(
-    level=logging.INFO,
+    level=logging.DEBUG,
     format="[%(asctime)s - %(levelname)s] - %(name)s - %(message)s",
     datefmt=datetime.now(timezone).strftime("%d - %b - %y | %H:%M:%S"),
     handlers=[

@@ -1,5 +1,5 @@
 import os
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 import asyncio
 from GroupMusicBot.config import BANNED_USERS
 

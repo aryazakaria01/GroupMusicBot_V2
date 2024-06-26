@@ -47,7 +47,7 @@ async def init():
             "Please turn on the video chat of your logs group\channel.\n\nShuting down the bot system..."
         )
         sys.exit()
-    except(ValueError, AttributeError):
+    except (ValueError, AttributeError):
         pass
     await GMB.decorators()
     LOGGER("GroupMusicBot").info(

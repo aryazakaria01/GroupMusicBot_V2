@@ -1,7 +1,6 @@
-import time
 import socket
 import heroku3
-import GroupMusicBot.config as config
+
 
 from pyrogram import filters
 from GroupMusicBot.logging import LOGGER
@@ -10,28 +9,27 @@ from GroupMusicBot.core.mongo import mongodb
 SUDOERS = filters.user()
 
 HAPP = None
-_boot_ = time.time()
 
 
 def is_heroku():
     return "heroku" in socket.getfqdn()
 
-
-XCB = [
-    "/",
-    "@",
-    ".",
-    "com",
-    ":",
-    "git",
-    "heroku",
-    "push",
-    str(config.HEROKU_API_KEY),
-    "https",
-    str(config.HEROKU_APP_NAME),
-    "HEAD",
-    "main",
-]
+from GroupMusicBot import config as conf
+# XCB = [
+#     "/",
+#     "@",
+#     ".",
+#     "com",
+#     ":",
+#     "git",
+#     "heroku",
+#     "push",
+#     str(conf.HEROKU_API_KEY),
+#     "https",
+#     str(conf.HEROKU_APP_NAME),
+#     "HEAD",
+#     "main",
+# ]
 
 
 def dbb():
@@ -42,12 +40,12 @@ def dbb():
 
 async def sudo():
     global SUDOERS
-    SUDOERS.add(config.OWNER_ID)
+    SUDOERS.add(conf.OWNER_ID)
     sudoersdb = mongodb.sudoers
     sudoers = await sudoersdb.find_one({"sudo": "sudo"})
     sudoers = [] if not sudoers else sudoers["sudoers"]
-    if config.OWNER_ID not in sudoers:
-        sudoers.append(config.OWNER_ID)
+    if conf.OWNER_ID not in sudoers:
+        sudoers.append(conf.OWNER_ID)
         await sudoersdb.update_one(
             {"sudo": "sudo"},
             {"$set": {"sudoers": sudoers}},
@@ -62,12 +60,13 @@ async def sudo():
 def heroku():
     global HAPP
     if is_heroku:
-        if config.HEROKU_API_KEY and config.HEROKU_APP_NAME:
+        if conf.HEROKU_API_KEY and conf.HEROKU_APP_NAME:
             try:
-                Heroku = heroku3.from_key(config.HEROKU_API_KEY)
-                HAPP = Heroku.app(config.HEROKU_APP_NAME)
+                Heroku = heroku3.from_key(conf.HEROKU_API_KEY)
+                HAPP = Heroku.app(conf.HEROKU_APP_NAME)
                 LOGGER(__name__).info("Heroku app configured")
             except BaseException:
                 LOGGER(__name__).warning(
                     "Please make sure your HEROKU_API_KEY and HEROKU_APP_NAME are configured correctly in the heroku."
                 )
+

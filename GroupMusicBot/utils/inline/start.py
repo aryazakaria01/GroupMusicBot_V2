@@ -1,6 +1,6 @@
 from pyrogram.types import InlineKeyboardButton
 
-import GroupMusicBot.config as config
+from GroupMusicBot import config
 from GroupMusicBot import app
 
 
