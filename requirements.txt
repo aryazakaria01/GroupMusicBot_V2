@@ -26,6 +26,6 @@ uvloop
 yt-dlp
 youtube-search
 youtube-search-python
-ntgcalls==1.2.1
+ntgcalls==1.2.2
 pytz
 pybase64
